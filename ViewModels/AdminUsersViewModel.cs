@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Data;
 using ReportSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ReportSystem.ViewModels;
 
@@ -51,7 +52,7 @@ public class AdminUsersViewModel : ObservableObject
             using (var db = new ApplicationDbContext())
             {
                 // Загружаем всех пользователей
-                var allUsers = db.Users.ToList();
+                var allUsers = db.Users.Include(u => u.Role).ToList();
                 
                 foreach (var user in allUsers)
                 {
@@ -81,13 +82,16 @@ public class AdminUsersViewModel : ObservableObject
         {
             using (var db = new ApplicationDbContext())
             {
+                var role = db.Roles.FirstOrDefault(r => r.Name == newRole);
+                if (role == null) return;
+
                 var user = db.Users.FirstOrDefault(u => u.Id == SelectedUser.Id);
                 if (user != null)
                 {
-                    user.Role = newRole;
+                    user.RoleId = role.Id;
                     db.SaveChanges();
                     
-                    SelectedUser.Role = newRole;
+                    SelectedUser.Role = role;
                     LoadUsers(); 
                 }
             }

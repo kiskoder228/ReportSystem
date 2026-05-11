@@ -77,7 +77,7 @@ public class CreateReportViewModel : ObservableObject
                 var list = db.Categories.ToList();
                 foreach (var cat in list)
                     Categories.Add(cat);
-                
+
                 SelectedCategory = Categories.FirstOrDefault();
             }
         }
@@ -98,16 +98,18 @@ public class CreateReportViewModel : ObservableObject
         {
             using (var db = new ApplicationDbContext())
             {
+                var statusNew = db.ReportStatuses.FirstOrDefault(s => s.Title == "New");
+
                 var report = new Report
                 {
-                    AuthorId    = _currentUser.Id,
-                    CategoryId  = SelectedCategory.Id,
+                    AuthorId = _currentUser.Id,
+                    CategoryId = SelectedCategory.Id,
                     Description = Description,
                     IsAnonymous = IsAnonymous,
-                    Status      = ReportStatus.New,
-                    CreatedAt   = DateTime.UtcNow
+                    Status = statusNew,
+                    CreatedAt = DateTime.UtcNow
                 };
-                
+
                 db.Reports.Add(report);
                 db.SaveChanges();
 

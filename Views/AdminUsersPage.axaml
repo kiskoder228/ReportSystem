@@ -51,7 +51,7 @@
                     <dg:DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneWay}" Width="60"/>
                     <dg:DataGridTextColumn Header="ФИО" Binding="{Binding FullName, Mode=OneWay}" Width="*"/>
                     <dg:DataGridTextColumn Header="Логин" Binding="{Binding Login, Mode=OneWay}" Width="150"/>
-                    <dg:DataGridTextColumn Header="Роль" Binding="{Binding Role, Mode=OneWay}" Width="120"/>
+                    <dg:DataGridTextColumn Header="Роль" Binding="{Binding Role.Name, Mode=OneWay}" Width="120"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </Border>

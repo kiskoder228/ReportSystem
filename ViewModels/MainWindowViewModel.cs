@@ -43,15 +43,15 @@ public class MainWindowViewModel : ObservableObject
         }
     }
 
-    public bool IsAdmin => CurrentUser.Role == "Admin";
-    public bool IsStudent => CurrentUser.Role == "Student";
-    public bool IsTeacher => CurrentUser.Role == "Teacher";
+    public bool IsAdmin => CurrentUser.Role?.Name == "Admin";
+    public bool IsStudent => CurrentUser.Role?.Name == "Student";
+    public bool IsTeacher => CurrentUser.Role?.Name == "Teacher";
 
     public MainWindowViewModel(User user)
     {
         CurrentUser = user;
         UserName = user.FullName;
-        UserRole = user.Role switch
+        UserRole = user.Role?.Name switch
         {
             "Admin" => "Администратор",
             "Teacher" => "Преподаватель",

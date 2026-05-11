@@ -68,7 +68,7 @@
                     <dg:DataGridTextColumn Header="Автор" Binding="{Binding Author.FullName, Mode=OneWay}" Width="160"/>
                     <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" Width="130"/>
                     <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" Width="*"/>
-                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status, Mode=OneWay}" Width="110"/>
+                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Title, Mode=OneWay}" Width="110"/>
                     <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy, Mode=OneWay}" Width="100"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>

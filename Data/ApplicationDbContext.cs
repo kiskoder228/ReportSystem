@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using ReportSystem.Models;
-using ReportSystem.Models.Enums;
 
 namespace ReportSystem.Data;
 
@@ -11,6 +10,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Report> Reports { get; set; } = null!;
     public DbSet<Role> Roles { get; set; } = null!;
+    public DbSet<ReportStatus> ReportStatuses { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -32,9 +32,16 @@ public class ApplicationDbContext : DbContext
             .WithMany(u => u.ReviewedReports)
             .HasForeignKey(r => r.ReviewedById);
 
+        // Настройка связей для Role и ReportStatus
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Role)
+            .WithMany()
+            .HasForeignKey(u => u.RoleId);
+
         modelBuilder.Entity<Report>()
-            .Property(r => r.Status)
-            .HasConversion<string>();
+            .HasOne(r => r.Status)
+            .WithMany()
+            .HasForeignKey(r => r.StatusId);
 
         // Простое заполнение категорий, чтобы не вводить вручную
         modelBuilder.Entity<Category>().HasData(

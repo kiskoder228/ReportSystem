@@ -1,8 +1,8 @@
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Models;
-using ReportSystem.Models.Enums;
 
 namespace ReportSystem.ViewModels;
 
@@ -13,8 +13,8 @@ public class DashboardPageViewModel : ObservableObject
     private int _resolvedReports;
     private int _newReports;
 
-    public int TotalReports   { get => _totalReports;    set => SetProperty(ref _totalReports, value); }
-    public int NewReports     { get => _newReports;      set => SetProperty(ref _newReports, value); }
+    public int TotalReports { get => _totalReports; set => SetProperty(ref _totalReports, value); }
+    public int NewReports { get => _newReports; set => SetProperty(ref _newReports, value); }
     public int InProgressReports { get => _inProgressReports; set => SetProperty(ref _inProgressReports, value); }
     public int ResolvedReports { get => _resolvedReports; set => SetProperty(ref _resolvedReports, value); }
 
@@ -29,16 +29,19 @@ public class DashboardPageViewModel : ObservableObject
             using (var db = new ApplicationDbContext())
             {
                 // Загружаем список для подсчета (для студента только его, для остальных всё)
-                var list = db.Reports.ToList();
-                if (user.Role == "Student")
+                var list = db.Reports.Include(r => r.Status).ToList();
+
+                var dbUser = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == user.Id);
+
+                if (dbUser?.Role?.Name == "Student")
                 {
                     list = list.Where(r => r.AuthorId == user.Id).ToList();
                 }
 
-                TotalReports      = list.Count();
-                NewReports        = list.Count(r => r.Status == ReportStatus.1);
-                InProgressReports = list.Count(r => r.Status == ReportStatus.2);
-                ResolvedReports   = list.Count(r => r.Status == ReportStatus.3);
+                TotalReports = list.Count();
+                NewReports = list.Count(r => r.Status?.Title == "New");
+                InProgressReports = list.Count(r => r.Status?.Title == "InProgress");
+                ResolvedReports = list.Count(r => r.Status?.Title == "Resolved");
             }
         }
         catch (System.Exception)

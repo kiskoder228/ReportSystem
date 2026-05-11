@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using ReportSystem.Models.Enums;
 
 namespace ReportSystem.Models;
 
@@ -19,7 +18,7 @@ public class Report
     public string Description { get; set; } = null!;
 
     public int StatusId { get; set; }
-    public ReportStatus Status { get; set; }
+    public ReportStatus? Status { get; set; }
     // Анонимная подача
     public bool IsAnonymous { get; set; } = false;
 

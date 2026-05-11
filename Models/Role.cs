@@ -1,7 +1,7 @@
-namespace ReportSystem.Models.Enums;
+namespace ReportSystem.Models;
 
 public class Role
 {
     public int Id { get; set; }
-    public static string Title {get; set;}
+    public string Name { get; set; } = null!;
 }

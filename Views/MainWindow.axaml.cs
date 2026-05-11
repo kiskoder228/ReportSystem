@@ -9,7 +9,7 @@ public partial class MainWindow : Window
     private readonly MainWindowViewModel _vm;
 
     // Нужен для Avalonia XAML loader
-    public MainWindow() : this(new Models.User { FullName = "Тест", Role = "Student" }) { }
+    public MainWindow() : this(new Models.User { FullName = "Тест", Role = new Models.Role { Name = "Student" } }) { }
 
     public MainWindow(User user)
     {

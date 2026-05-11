@@ -1,8 +1,7 @@
-namespace ReportSystem.Models.Enums;
+namespace ReportSystem.Models;
 
 public class ReportStatus
 {
-    public int Id{get; set;}
-    public string Name {get; set;} = null!;
-
+    public int Id { get; set; }
+    public string Title { get; set; } = null!;
 }

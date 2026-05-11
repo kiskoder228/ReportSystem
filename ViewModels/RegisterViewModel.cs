@@ -67,13 +67,15 @@ public class RegisterViewModel : ObservableObject
                     return;
                 }
 
+                var role = db.Roles.FirstOrDefault(r => r.Name == SelectedRole);
+
                 // Создаем нового юзера
                 var newUser = new User
                 {
                     FullName = FullName,
                     Login = Login,
                     PasswordHash = BC.HashPassword(Password), // хэшируем пароль для безопасности
-                    Role = SelectedRole
+                    Role = role
                 };
 
                 db.Users.Add(newUser);

@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Data;
 using ReportSystem.Models;
-using ReportSystem.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace ReportSystem.ViewModels;
 
@@ -69,7 +69,7 @@ public class AdminReportsViewModel : ObservableObject
             using (var db = new ApplicationDbContext())
             {
                 // Загружаем всё из базы и фильтруем в памяти (так проще объяснить)
-                var allReports = db.Reports.ToList();
+                var allReports = db.Reports.Include(r => r.Status).ToList();
                 
                 foreach (var r in allReports)
                 {
@@ -83,7 +83,7 @@ public class AdminReportsViewModel : ObservableObject
                     // Фильтрация по статусу
                     if (!string.IsNullOrWhiteSpace(FilterStatus) && FilterStatus != "Все")
                     {
-                        if (r.Status.ToString() != FilterStatus)
+                        if (r.Status?.Title != FilterStatus)
                             continue;
                     }
 
@@ -104,17 +104,23 @@ public class AdminReportsViewModel : ObservableObject
     private void ChangeStatus(string? statusStr)
     {
         if (SelectedReport == null || statusStr == null) return;
-        if (!System.Enum.TryParse<ReportStatus>(statusStr, out var newStatus)) return;
 
         try
         {
             using (var db = new ApplicationDbContext())
             {
+                // 1. Ищем статус в базе данных по его имени
+                var newStatus = db.ReportStatuses.FirstOrDefault(s => s.Title == statusStr);
+                if (newStatus == null) return; // Если такого статуса нет в БД, ничего не делаем
+
                 var report = db.Reports.FirstOrDefault(r => r.Id == SelectedReport.Id);
                 if (report != null)
                 {
-                    report.Status = newStatus;
-                    if (newStatus == ReportStatus.3 || newStatus == ReportStatus.Rejected)
+                    // 2. Присваиваем ID найденного статуса
+                    report.StatusId = newStatus.Id;
+                    
+                    // 3. Логика по изменению времени закрытия (проверяем по имени статуса)
+                    if (newStatus.Title == "Resolved" || newStatus.Title == "Rejected")
                         report.ResolvedAt = System.DateTime.UtcNow;
 
                     db.SaveChanges();
