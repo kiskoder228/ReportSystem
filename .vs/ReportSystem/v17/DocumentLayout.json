@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\student\\Downloads\\ReportSystem-main\\ReportSystem-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{024373A9-7171-46B8-9BDB-C86091E9952C}|ReportSystem.csproj|c:\\users\\student\\downloads\\reportsystem-main\\reportsystem-main\\models\\evidence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{024373A9-7171-46B8-9BDB-C86091E9952C}|ReportSystem.csproj|solutionrelative:models\\evidence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{024373A9-7171-46B8-9BDB-C86091E9952C}|ReportSystem.csproj|c:\\users\\student\\downloads\\reportsystem-main\\reportsystem-main\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{024373A9-7171-46B8-9BDB-C86091E9952C}|ReportSystem.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Evidence.cs",
+              "DocumentMoniker": "C:\\Users\\student\\Downloads\\ReportSystem-main\\ReportSystem-main\\Models\\Evidence.cs",
+              "RelativeDocumentMoniker": "Models\\Evidence.cs",
+              "ToolTip": "C:\\Users\\student\\Downloads\\ReportSystem-main\\ReportSystem-main\\Models\\Evidence.cs",
+              "RelativeToolTip": "Models\\Evidence.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T22:40:48.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\student\\Downloads\\ReportSystem-main\\ReportSystem-main\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "Models\\Category.cs",
+              "ToolTip": "C:\\Users\\student\\Downloads\\ReportSystem-main\\ReportSystem-main\\Models\\Category.cs",
+              "RelativeToolTip": "Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T22:40:38.569Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

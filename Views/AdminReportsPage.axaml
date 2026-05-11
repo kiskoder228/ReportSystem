@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReportSystem.ViewModels"
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             x:Class="ReportSystem.Views.AdminReportsPage"
+             x:DataType="vm:AdminReportsViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style Selector="Button.ActionBtn">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="14,0"/>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Spacing="20">
+
+        <TextBlock Text="🛡️ Панель администратора"
+                   FontSize="22" FontWeight="Bold" Foreground="#1A1F2E"/>
+
+        <!-- Фильтры -->
+        <Border Background="White" CornerRadius="12" Padding="20"
+                BoxShadow="0 2 12 0 #15000000">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <TextBox Grid.Column="0"
+                         Text="{Binding SearchText}"
+                         Watermark="🔍  Поиск по описанию..."/>
+                <ComboBox Grid.Column="1" Width="160"
+                          ItemsSource="{Binding StatusFilters}"
+                          SelectedItem="{Binding FilterStatus}"/>
+            </Grid>
+        </Border>
+
+        <!-- Таблица -->
+        <Border Background="White" CornerRadius="12"
+                BoxShadow="0 2 12 0 #15000000">
+            <dg:DataGrid ItemsSource="{Binding Reports}"
+                      SelectedItem="{Binding SelectedReport}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column"
+                      RowBackground="White"
+                      FontSize="13"
+                      MinHeight="300">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridTextColumn Header="№" Binding="{Binding Id, Mode=OneWay}" Width="60"/>
+                    <dg:DataGridTextColumn Header="Автор" Binding="{Binding Author.FullName, Mode=OneWay}" Width="160"/>
+                    <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" Width="130"/>
+                    <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" Width="*"/>
+                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status, Mode=OneWay}" Width="110"/>
+                    <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy, Mode=OneWay}" Width="100"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </Border>
+
+        <!-- Кнопки действий -->
+        <Border Background="White" CornerRadius="12" Padding="20"
+                BoxShadow="0 2 12 0 #15000000">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Изменить статус выбранного обращения:"
+                           FontSize="13" Foreground="#6C757D"/>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Classes="ActionBtn"
+                            Command="{Binding ChangeStatusCommand}"
+                            CommandParameter="InProgress"
+                            Content="⚙️ В работе"
+                            Background="#E3F2FD" Foreground="#1565C0"/>
+                    <Button Classes="ActionBtn"
+                            Command="{Binding ChangeStatusCommand}"
+                            CommandParameter="Resolved"
+                            Content="✅ Решено"
+                            Background="#E8F5E9" Foreground="#2E7D32"/>
+                    <Button Classes="ActionBtn"
+                            Command="{Binding ChangeStatusCommand}"
+                            CommandParameter="Rejected"
+                            Content="❌ Отклонить"
+                            Background="#FFEBEE" Foreground="#C62828"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </StackPanel>
+</UserControl>

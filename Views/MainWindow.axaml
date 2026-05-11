@@ -1,0 +1,175 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ReportSystem.ViewModels"
+        x:Class="ReportSystem.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Система информирования о нарушениях"
+        Width="1100" Height="680"
+        MinWidth="900" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F2F5">
+
+    <Window.Styles>
+        <Style Selector="Button.NavBtn">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/> <!-- Светло-серый текст -->
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.NavBtn /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="Button.NavBtn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4A5568"/> <!-- Серый фон при наведении -->
+            <Setter Property="TextElement.Foreground" Value="White"/>
+        </Style>
+        
+        <Style Selector="Button.NavBtnActive">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Background" Value="#4A90E2"/> <!-- Приятный голубой вместо темно-синего -->
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.NavBtnActive /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4A90E2"/>
+        </Style>
+        <Style Selector="Button.NavBtnActive:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#357ABD"/>
+        </Style>
+        
+        <Style Selector="Button.ExitBtn">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FF6B6B"/> <!-- Светло-красный текст -->
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.ExitBtn /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="Button.ExitBtn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#FF6B6B"/>
+            <Setter Property="TextElement.Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="240,*">
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Color="#1A1F2E" Offset="0"/>
+                    <GradientStop Color="#2C3350" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+                <!-- Логотип -->
+                <StackPanel Grid.Row="0" Margin="20,24,20,20" Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="🛡️" FontSize="24"/>
+                        <TextBlock Text="МониторинГ" FontSize="16" FontWeight="Bold"
+                                   Foreground="White" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="Система нарушений" FontSize="11"
+                               Foreground="#6C7A9C" Margin="34,0,0,0"/>
+                </StackPanel>
+
+                <!-- Профиль — Исправлена обрезка имени и цвет фона -->
+                <Border Grid.Row="1" Background="#25FFFFFF" CornerRadius="10"
+                        Margin="14,0,14,20" Padding="14,12"
+                        ClipToBounds="True">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <!-- Аватар -->
+                        <Border Grid.Column="0" Width="40" Height="40" CornerRadius="20"
+                                Background="#1976D2" MinWidth="40">
+                            <TextBlock Text="{Binding UserName[0]}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="18" FontWeight="Bold"
+                                       Foreground="White"/>
+                        </Border>
+                        <!-- Имя и роль — MaxWidth гарантирует, что текст не выйдет за пределы -->
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2"
+                                    Margin="12,0,0,0" ClipToBounds="True">
+                            <TextBlock Text="{Binding UserName}"
+                                       Foreground="White" FontWeight="SemiBold"
+                                       FontSize="13"
+                                       MaxWidth="140"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap"/>
+                            <TextBlock Text="{Binding UserRole}"
+                                       Foreground="#6C7A9C" FontSize="11"
+                                       MaxWidth="140"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Навигация -->
+                <StackPanel Grid.Row="2" Margin="10,0" Spacing="4">
+                    <TextBlock Text="МЕНЮ" FontSize="10" Foreground="#6C7A9C"
+                               Margin="16,0,0,8" FontWeight="SemiBold"/>
+
+                    <!-- Кнопки для ученика/учителя -->
+                    <StackPanel IsVisible="{Binding IsStudent}">
+                        <Button Name="NavDashboard" Classes="NavBtnActive"
+                                Content="📊  Главная"/>
+                        <Button Name="NavCreate" Classes="NavBtn"
+                                Content="📝  Создать жалобу"/>
+                        <Button Name="NavMy" Classes="NavBtn"
+                                Content="📋  Мои обращения"/>
+                    </StackPanel>
+
+                    <!-- Кнопки для преподавателя -->
+                    <StackPanel IsVisible="{Binding IsTeacher}">
+                        <Button Name="NavTeacherDash" Classes="NavBtnActive"
+                                Content="📊  Главная"/>
+                        <Button Name="NavTeacherReports" Classes="NavBtn"
+                                Content="📋  Список нарушений"/>
+                    </StackPanel>
+
+                    <!-- Кнопки для администратора -->
+                    <StackPanel IsVisible="{Binding IsAdmin}">
+                        <Button Name="NavAdminDash" Classes="NavBtnActive"
+                                Content="📊  Главная"/>
+                        <Button Name="NavAdminReports" Classes="NavBtn"
+                                Content="📋  Все обращения"/>
+                        <Button Name="NavAdminUsers" Classes="NavBtn"
+                                Content="👥  Пользователи"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Выход -->
+                <Border Grid.Row="3" Margin="10,0,10,20">
+                    <Button Name="LogoutBtn" Classes="ExitBtn"
+                            Content="🚪  Выйти из системы"/>
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <!-- Основной контент -->
+        <Border Grid.Column="1" Background="#F0F2F5" Padding="28">
+            <ContentControl Content="{Binding CurrentPage}"/>
+        </Border>
+
+    </Grid>
+</Window>

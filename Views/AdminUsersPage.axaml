@@ -1,0 +1,98 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReportSystem.ViewModels"
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             x:Class="ReportSystem.Views.AdminUsersPage"
+             x:DataType="vm:AdminUsersViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style Selector="Button.ActionBtn">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="14,0"/>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Spacing="20">
+        <TextBlock Text="👥 Управление пользователями"
+                   FontSize="22" FontWeight="Bold" Foreground="#1A1F2E"/>
+
+        <!-- Поиск -->
+        <Border Background="White" CornerRadius="12" Padding="20"
+                BoxShadow="0 2 12 0 #15000000">
+            <TextBox Text="{Binding SearchText}"
+                     Watermark="🔍  Поиск по имени или логину..."/>
+        </Border>
+
+        <!-- Таблица пользователей -->
+        <Border Background="White" CornerRadius="12"
+                BoxShadow="0 2 12 0 #15000000">
+            <dg:DataGrid ItemsSource="{Binding Users}"
+                         SelectedItem="{Binding SelectedUser}"
+                         AutoGenerateColumns="False"
+                         IsReadOnly="True"
+                         GridLinesVisibility="Horizontal"
+                         HeadersVisibility="Column"
+                         RowBackground="White"
+                         FontSize="13"
+                         MinHeight="300">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneWay}" Width="60"/>
+                    <dg:DataGridTextColumn Header="ФИО" Binding="{Binding FullName, Mode=OneWay}" Width="*"/>
+                    <dg:DataGridTextColumn Header="Логин" Binding="{Binding Login, Mode=OneWay}" Width="150"/>
+                    <dg:DataGridTextColumn Header="Роль" Binding="{Binding Role, Mode=OneWay}" Width="120"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </Border>
+
+        <!-- Панель назначения роли -->
+        <Border Background="White" CornerRadius="12" Padding="20"
+                BoxShadow="0 2 12 0 #15000000"
+                IsVisible="{Binding SelectedUser, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <StackPanel Spacing="12">
+                <TextBlock FontSize="13" Foreground="#6C757D">
+                    <Run Text="Изменить роль для: "/>
+                    <Run Text="{Binding SelectedUser.FullName}" FontWeight="Bold" Foreground="#1A1F2E"/>
+                </TextBlock>
+                
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Classes="ActionBtn"
+                            Command="{Binding ChangeRoleCommand}"
+                            CommandParameter="Student"
+                            Content="🎓 Ученик"
+                            Background="#E3F2FD" Foreground="#1565C0"/>
+                    
+                    <Button Classes="ActionBtn"
+                            Command="{Binding ChangeRoleCommand}"
+                            CommandParameter="Teacher"
+                            Content="👨‍🏫 Преподаватель"
+                            Background="#E8F5E9" Foreground="#2E7D32"/>
+                    
+                    <Button Classes="ActionBtn"
+                            Command="{Binding ChangeRoleCommand}"
+                            CommandParameter="Admin"
+                            Content="🛡️ Администратор"
+                            Background="#E8EAF6" Foreground="#3F51B5"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        
+        <Border Background="#E3F2FD" CornerRadius="8" Padding="16"
+                IsVisible="{Binding SelectedUser, Converter={x:Static ObjectConverters.IsNull}}">
+            <TextBlock Text="Выберите пользователя из списка выше, чтобы изменить его роль."
+                       Foreground="#1565C0" FontSize="13" HorizontalAlignment="Center"/>
+        </Border>
+
+    </StackPanel>
+</UserControl>
