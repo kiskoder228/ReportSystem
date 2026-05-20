@@ -28,14 +28,14 @@
         <TextBlock Text="👥 Управление пользователями"
                    FontSize="22" FontWeight="Bold" Foreground="#1A1F2E"/>
 
-        <!-- Поиск -->
+        
         <Border Background="White" CornerRadius="12" Padding="20"
                 BoxShadow="0 2 12 0 #15000000">
             <TextBox Text="{Binding SearchText}"
                      Watermark="🔍  Поиск по имени или логину..."/>
         </Border>
 
-        <!-- Таблица пользователей -->
+        
         <Border Background="White" CornerRadius="12"
                 BoxShadow="0 2 12 0 #15000000">
             <dg:DataGrid ItemsSource="{Binding Users}"
@@ -56,7 +56,7 @@
             </dg:DataGrid>
         </Border>
 
-        <!-- Панель назначения роли -->
+        
         <Border Background="White" CornerRadius="12" Padding="20"
                 BoxShadow="0 2 12 0 #15000000"
                 IsVisible="{Binding SelectedUser, Converter={x:Static ObjectConverters.IsNotNull}}">
@@ -96,3 +96,4 @@
 
     </StackPanel>
 </UserControl>
+

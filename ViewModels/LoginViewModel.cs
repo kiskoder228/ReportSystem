@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Data;
@@ -50,18 +49,16 @@ public class LoginViewModel : ObservableObject
         }
     }
 
-    // Нужно для IsVisible в AXAML (!! не работает в Avalonia с compiled bindings)
     public bool HasMessage => !string.IsNullOrEmpty(_errorMessage);
 
     public IRelayCommand LoginCommand { get; }
+
+    public event Action<Models.User>? LoginSucceeded;
 
     public LoginViewModel()
     {
         LoginCommand = new RelayCommand(ExecuteLogin);
     }
-
-    // Событие успешного входа — передаём пользователя наружу (в codebehind)
-    public event Action<Models.User>? LoginSucceeded;
 
     private void ExecuteLogin()
     {
@@ -75,23 +72,14 @@ public class LoginViewModel : ObservableObject
 
         try
         {
-            // Подключаемся к базе
-            using (var db = new ApplicationDbContext())
-            {
-                // Ищем юзера по логину
-                var user = db.Users.FirstOrDefault(u => u.Login == Login);
+            using var db = new ApplicationDbContext();
 
-                // Если юзер есть и пароль совпал (проверяем хэш)
-                if (user != null && BC.Verify(Password, user.PasswordHash))
-                {
-                    // Успешный вход!
-                    LoginSucceeded?.Invoke(user);
-                }
-                else
-                {
-                    ErrorMessage = "Неверный логин или пароль";
-                }
-            }
+            var user = db.Users.FirstOrDefault(u => u.Login == Login);
+
+            if (user != null && BC.Verify(Password, user.PasswordHash))
+                LoginSucceeded?.Invoke(user);
+            else
+                ErrorMessage = "Неверный логин или пароль";
         }
         catch (Exception ex)
         {

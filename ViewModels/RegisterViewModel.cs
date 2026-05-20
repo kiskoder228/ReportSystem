@@ -1,7 +1,5 @@
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -24,6 +22,7 @@ public class RegisterViewModel : ObservableObject
     public string Login { get => _login; set => SetProperty(ref _login, value); }
     public string Password { get => _password; set => SetProperty(ref _password, value); }
     public bool ShowPassword { get => _showPassword; set => SetProperty(ref _showPassword, value); }
+
     public string StatusMessage
     {
         get => _statusMessage;
@@ -36,7 +35,7 @@ public class RegisterViewModel : ObservableObject
 
     public bool HasMessage => !string.IsNullOrEmpty(_statusMessage);
     public IBrush MessageColor { get => _messageColor; set => SetProperty(ref _messageColor, value); }
-    // Роль при регистрации всегда "Student"
+
     public string SelectedRole { get; } = "Student";
 
     public IRelayCommand RegisterCommand { get; }
@@ -46,49 +45,48 @@ public class RegisterViewModel : ObservableObject
         RegisterCommand = new RelayCommand(OnRegister);
     }
 
+    private void ShowMessage(string message, IBrush color)
+    {
+        StatusMessage = message;
+        MessageColor = color;
+    }
+
     private void OnRegister()
     {
         if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(FullName))
         {
-            StatusMessage = "Заполните все поля!";
-            MessageColor = Brushes.Red;
+            ShowMessage("Заполните все поля!", Brushes.Red);
             return;
         }
 
         try
         {
-            using (var db = new ApplicationDbContext())
+            using var db = new ApplicationDbContext();
+
+            if (db.Users.Any(u => u.Login == Login))
             {
-                // Проверяем есть ли такой логин
-                if (db.Users.Any(u => u.Login == Login))
-                {
-                    StatusMessage = "Логин уже занят!";
-                    MessageColor = Brushes.Red;
-                    return;
-                }
-
-                var role = db.Roles.FirstOrDefault(r => r.Name == SelectedRole);
-
-                // Создаем нового юзера
-                var newUser = new User
-                {
-                    FullName = FullName,
-                    Login = Login,
-                    PasswordHash = BC.HashPassword(Password), // хэшируем пароль для безопасности
-                    Role = role
-                };
-
-                db.Users.Add(newUser);
-                db.SaveChanges(); // сохраняем
-
-                StatusMessage = "Регистрация успешна!";
-                MessageColor = Brushes.Green;
+                ShowMessage("Логин уже занят!", Brushes.Red);
+                return;
             }
+
+            var role = db.Roles.FirstOrDefault(r => r.Name == SelectedRole);
+
+            var newUser = new User
+            {
+                FullName = FullName,
+                Login = Login,
+                PasswordHash = BC.HashPassword(Password),
+                Role = role
+            };
+
+            db.Users.Add(newUser);
+            db.SaveChanges();
+
+            ShowMessage("Регистрация успешна!", Brushes.Green);
         }
         catch (Exception ex)
         {
-            StatusMessage = "Ошибка: " + ex.Message;
-            MessageColor = Brushes.Red;
+            ShowMessage("Ошибка: " + ex.Message, Brushes.Red);
         }
     }
 }

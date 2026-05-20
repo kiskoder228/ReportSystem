@@ -10,7 +10,6 @@ public partial class RegisterWindow : Window
         InitializeComponent();
         DataContext = new RegisterViewModel();
 
-        // Кнопка «Войти» — закрыть RegisterWindow
         var backBtn = this.FindControl<Button>("BackToLoginBtn");
         if (backBtn != null)
             backBtn.Click += (_, _) => this.Close();

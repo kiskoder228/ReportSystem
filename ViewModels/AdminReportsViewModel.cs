@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Data;
@@ -35,9 +34,7 @@ public class AdminReportsViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _searchText, value))
-            {
                 LoadReports();
-            }
         }
     }
 
@@ -47,9 +44,7 @@ public class AdminReportsViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _filterStatus, value))
-            {
                 LoadReports();
-            }
         }
     }
 
@@ -66,39 +61,25 @@ public class AdminReportsViewModel : ObservableObject
         Reports.Clear();
         try
         {
-            using (var db = new ApplicationDbContext())
+            using var db = new ApplicationDbContext();
+
+            var query = db.Reports.Include(r => r.Status).AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(SearchText))
+                query = query.Where(r => r.Description != null &&
+                                         r.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(FilterStatus) && FilterStatus != "Все")
+                query = query.Where(r => r.Status?.Name == FilterStatus);
+
+            foreach (var report in query)
             {
-                // Загружаем всё из базы и фильтруем в памяти (так проще объяснить)
-                var allReports = db.Reports.Include(r => r.Status).ToList();
-                
-                foreach (var r in allReports)
-                {
-                    // Простая фильтрация по тексту
-                    if (!string.IsNullOrWhiteSpace(SearchText))
-                    {
-                        if (r.Description == null || !r.Description.ToLower().Contains(SearchText.ToLower()))
-                            continue;
-                    }
-
-                    // Фильтрация по статусу
-                    if (!string.IsNullOrWhiteSpace(FilterStatus) && FilterStatus != "Все")
-                    {
-                        if (r.Status?.Title != FilterStatus)
-                            continue;
-                    }
-
-                    // Подгружаем автора и категорию вручную
-                    r.Author = db.Users.FirstOrDefault(u => u.Id == r.AuthorId);
-                    r.Category = db.Categories.FirstOrDefault(c => c.Id == r.CategoryId);
-
-                    Reports.Add(r);
-                }
+                report.Author = db.Users.FirstOrDefault(u => u.Id == report.AuthorId);
+                report.Category = db.Categories.FirstOrDefault(c => c.Id == report.CategoryId);
+                Reports.Add(report);
             }
         }
-        catch (Exception)
-        {
-            // Ошибка загрузки
-        }
+        catch (Exception) { }
     }
 
     private void ChangeStatus(string? statusStr)
@@ -107,30 +88,22 @@ public class AdminReportsViewModel : ObservableObject
 
         try
         {
-            using (var db = new ApplicationDbContext())
-            {
-                // 1. Ищем статус в базе данных по его имени
-                var newStatus = db.ReportStatuses.FirstOrDefault(s => s.Title == statusStr);
-                if (newStatus == null) return; // Если такого статуса нет в БД, ничего не делаем
+            using var db = new ApplicationDbContext();
 
-                var report = db.Reports.FirstOrDefault(r => r.Id == SelectedReport.Id);
-                if (report != null)
-                {
-                    // 2. Присваиваем ID найденного статуса
-                    report.StatusId = newStatus.Id;
-                    
-                    // 3. Логика по изменению времени закрытия (проверяем по имени статуса)
-                    if (newStatus.Title == "Resolved" || newStatus.Title == "Rejected")
-                        report.ResolvedAt = System.DateTime.UtcNow;
+            var newStatus = db.ReportStatuses.FirstOrDefault(s => s.Name == statusStr);
+            if (newStatus == null) return;
 
-                    db.SaveChanges();
-                    LoadReports();
-                }
-            }
+            var report = db.Reports.FirstOrDefault(r => r.Id == SelectedReport.Id);
+            if (report == null) return;
+
+            report.StatusId = newStatus.Id;
+
+            if (newStatus.Name == "Resolved" || newStatus.Name == "Rejected")
+                report.ResolvedAt = DateTime.UtcNow;
+
+            db.SaveChanges();
+            LoadReports();
         }
-        catch (Exception)
-        {
-            
-        }
+        catch (Exception) { }
     }
 }

@@ -51,7 +51,7 @@
         </Style>
     </Window.Styles>
 
-    <!-- Центрированная карточка -->
+    
     <Border Background="White" CornerRadius="10"
             Margin="40" Padding="36"
             VerticalAlignment="Center">
@@ -65,21 +65,21 @@
                        FontSize="13" Foreground="#6C757D"
                        Margin="0,0,0,24"/>
 
-            <!-- ФИО -->
+            
             <TextBlock Text="ФИО" FontWeight="SemiBold" FontSize="13"
                        Foreground="#495057" Margin="0,0,0,6"/>
             <TextBox Text="{Binding FullName}"
                      Watermark="Иванов Иван Иванович"
                      Margin="0,0,0,14"/>
 
-            <!-- Логин -->
+            
             <TextBlock Text="Логин" FontWeight="SemiBold" FontSize="13"
                        Foreground="#495057" Margin="0,0,0,6"/>
             <TextBox Text="{Binding Login}"
                      Watermark="Придумайте логин"
                      Margin="0,0,0,14"/>
 
-            <!-- Пароль -->
+            
             <TextBlock Text="Пароль" FontWeight="SemiBold" FontSize="13"
                        Foreground="#495057" Margin="0,0,0,6"/>
             <TextBox Text="{Binding Password}"
@@ -100,7 +100,7 @@
                 </TextBox.InnerRightContent>
             </TextBox>
 
-            <!-- Статус-сообщение -->
+            
             <Border Background="#FFF3F3" CornerRadius="6" Padding="10,8"
                     Margin="0,0,0,14"
                     IsVisible="{Binding HasMessage}">
@@ -109,7 +109,7 @@
                            FontSize="13" TextWrapping="Wrap"/>
             </Border>
 
-            <!-- Кнопка -->
+            
             <Button Command="{Binding RegisterCommand}"
                     Content="Зарегистрироваться"
                     Classes="PrimaryBtn"

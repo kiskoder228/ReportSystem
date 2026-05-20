@@ -22,31 +22,26 @@ public class DashboardPageViewModel : ObservableObject
 
     public DashboardPageViewModel(User user)
     {
-        GreetingName = user.FullName.Split(' ')[0]; // Только имя
+        GreetingName = user.FullName.Split(' ').FirstOrDefault() ?? user.FullName;
 
         try
         {
-            using (var db = new ApplicationDbContext())
-            {
-                // Загружаем список для подсчета (для студента только его, для остальных всё)
-                var list = db.Reports.Include(r => r.Status).ToList();
+            using var db = new ApplicationDbContext();
 
-                var dbUser = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == user.Id);
+            var dbUser = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == user.Id);
 
-                if (dbUser?.Role?.Name == "Student")
-                {
-                    list = list.Where(r => r.AuthorId == user.Id).ToList();
-                }
+            var reports = db.Reports.Include(r => r.Status).AsEnumerable();
 
-                TotalReports = list.Count();
-                NewReports = list.Count(r => r.Status?.Title == "New");
-                InProgressReports = list.Count(r => r.Status?.Title == "InProgress");
-                ResolvedReports = list.Count(r => r.Status?.Title == "Resolved");
-            }
+            if (dbUser?.Role?.Name == "Student")
+                reports = reports.Where(r => r.AuthorId == user.Id);
+
+            var list = reports.ToList();
+
+            TotalReports = list.Count;
+            NewReports = list.Count(r => r.Status?.Name == "New");
+            InProgressReports = list.Count(r => r.Status?.Name == "InProgress");
+            ResolvedReports = list.Count(r => r.Status?.Name == "Resolved");
         }
-        catch (System.Exception)
-        {
-            // нули по умолчанию
-        }
+        catch (System.Exception) { }
     }
 }

@@ -12,7 +12,7 @@
         <TextBlock Text="История всех ваших поданных обращений"
                    FontSize="13" Foreground="#6C757D"/>
 
-        <!-- Таблица -->
+        
         <Border Background="White" CornerRadius="12"
                 BoxShadow="0 2 12 0 #15000000" Padding="0">
             <dg:DataGrid ItemsSource="{Binding Reports}"
@@ -27,13 +27,13 @@
                     <dg:DataGridTextColumn Header="№" Binding="{Binding Id, Mode=OneWay}" Width="60"/>
                     <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" Width="160"/>
                     <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" Width="*"/>
-                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Title, Mode=OneWay}" Width="110"/>
+                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name, Mode=OneWay}" Width="110"/>
                     <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy, Mode=OneWay}" Width="110"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </Border>
 
-        <!-- Пустое состояние -->
+        
         <Border IsVisible="{Binding !Reports.Count}"
                 Background="White" CornerRadius="12" Padding="40"
                 BoxShadow="0 2 12 0 #15000000">
@@ -48,3 +48,4 @@
 
     </StackPanel>
 </UserControl>
+

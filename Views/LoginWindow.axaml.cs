@@ -12,10 +12,8 @@ public partial class LoginWindow : Window
         var vm = new LoginViewModel();
         DataContext = vm;
 
-        // При успешном входе — открываем главное окно
         vm.LoginSucceeded += OnLoginSucceeded;
 
-        // Кнопка «Зарегистрироваться»
         var registerBtn = this.FindControl<Button>("OpenRegisterBtn");
         if (registerBtn != null)
             registerBtn.Click += (_, _) =>

@@ -1,6 +1,5 @@
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
@@ -12,7 +11,7 @@ public class MainWindowViewModel : ObservableObject
     private object? _currentPage;
     private int _selectedMenuIndex = 0;
 
-    public User CurrentUser { get; }
+    public User CurrentUser { get; set; }
 
     public string UserName
     {
@@ -26,7 +25,6 @@ public class MainWindowViewModel : ObservableObject
         set => SetProperty(ref _userRole, value);
     }
 
-    // Текущая страница (контент)
     public object? CurrentPage
     {
         get => _currentPage;
@@ -47,18 +45,18 @@ public class MainWindowViewModel : ObservableObject
     public bool IsStudent => CurrentUser.Role?.Name == "Student";
     public bool IsTeacher => CurrentUser.Role?.Name == "Teacher";
 
+    private static readonly Dictionary<string, string> RoleLabels = new()
+    {
+        ["Admin"] = "Администратор",
+        ["Teacher"] = "Преподаватель",
+        ["Student"] = "Ученик"
+    };
+
     public MainWindowViewModel(User user)
     {
         CurrentUser = user;
         UserName = user.FullName;
-        UserRole = user.Role?.Name switch
-        {
-            "Admin" => "Администратор",
-            "Teacher" => "Преподаватель",
-            _ => "Ученик"
-        };
-
-        // Открываем главную страницу
+        UserRole = user.Role != null && RoleLabels.TryGetValue(user.Role.Name, out var label) ? label : (user.Role?.Name ?? "Unknown");
         NavigateTo(1);
     }
 
@@ -70,8 +68,8 @@ public class MainWindowViewModel : ObservableObject
             {
                 0 => new DashboardPageViewModel(CurrentUser),
                 1 => new AdminReportsViewModel(CurrentUser),
-                2 => new AdminUsersViewModel(CurrentUser),
-                _ => null
+                2 => (object)new AdminUsersViewModel(CurrentUser),
+                _ => CurrentPage
             };
         }
         else if (IsTeacher)
@@ -79,18 +77,18 @@ public class MainWindowViewModel : ObservableObject
             CurrentPage = index switch
             {
                 0 => new DashboardPageViewModel(CurrentUser),
-                1 => new AdminReportsViewModel(CurrentUser), // Преподаватель видит то же, что админ, но без управления ролями
-                _ => null
+                1 => (object)new AdminReportsViewModel(CurrentUser),
+                _ => CurrentPage
             };
         }
-        else
+        else if (IsStudent)
         {
             CurrentPage = index switch
             {
                 0 => new DashboardPageViewModel(CurrentUser),
                 1 => new CreateReportViewModel(CurrentUser),
-                2 => new MyReportsViewModel(CurrentUser),
-                _ => null
+                2 => (object)new MyReportsViewModel(CurrentUser),
+                _ => CurrentPage
             };
         }
     }

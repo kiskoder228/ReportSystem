@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Data;
@@ -72,58 +71,55 @@ public class CreateReportViewModel : ObservableObject
     {
         try
         {
-            using (var db = new ApplicationDbContext())
-            {
-                var list = db.Categories.ToList();
-                foreach (var cat in list)
-                    Categories.Add(cat);
+            using var db = new ApplicationDbContext();
+            foreach (var cat in db.Categories.ToList())
+                Categories.Add(cat);
 
-                SelectedCategory = Categories.FirstOrDefault();
-            }
+            SelectedCategory = Categories.FirstOrDefault();
         }
         catch { }
+    }
+
+    private void ShowMessage(bool success, string message)
+    {
+        IsSuccess = success;
+        StatusMessage = message;
+        HasMessage = true;
     }
 
     private void SubmitReport()
     {
         if (SelectedCategory == null || string.IsNullOrWhiteSpace(Description))
         {
-            IsSuccess = false;
-            StatusMessage = "Заполните описание и выберите категорию!";
-            HasMessage = true;
+            ShowMessage(false, "Заполните описание и выберите категорию!");
             return;
         }
 
         try
         {
-            using (var db = new ApplicationDbContext())
+            using var db = new ApplicationDbContext();
+
+            var statusNew = db.ReportStatuses.FirstOrDefault(s => s.Name == "New");
+
+            var report = new Report
             {
-                var statusNew = db.ReportStatuses.FirstOrDefault(s => s.Title == "New");
+                AuthorId = _currentUser.Id,
+                CategoryId = SelectedCategory.Id,
+                Description = Description,
+                IsAnonymous = IsAnonymous,
+                Status = statusNew,
+                CreatedAt = DateTime.UtcNow
+            };
 
-                var report = new Report
-                {
-                    AuthorId = _currentUser.Id,
-                    CategoryId = SelectedCategory.Id,
-                    Description = Description,
-                    IsAnonymous = IsAnonymous,
-                    Status = statusNew,
-                    CreatedAt = DateTime.UtcNow
-                };
+            db.Reports.Add(report);
+            db.SaveChanges();
 
-                db.Reports.Add(report);
-                db.SaveChanges();
-
-                IsSuccess = true;
-                StatusMessage = "✅ Обращение успешно отправлено!";
-                HasMessage = true;
-                Clear();
-            }
+            ShowMessage(true, "✅ Обращение успешно отправлено!");
+            Clear();
         }
         catch (Exception ex)
         {
-            IsSuccess = false;
-            StatusMessage = "Ошибка: " + ex.Message;
-            HasMessage = true;
+            ShowMessage(false, "Ошибка: " + ex.Message);
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Models;
 
@@ -19,22 +20,16 @@ public class MyReportsViewModel : ObservableObject
     {
         try
         {
-            using (var db = new ApplicationDbContext())
-            {
-                // Получаем список жалоб пользователя
-                var list = db.Reports.Where(r => r.AuthorId == user.Id).ToList();
-                
-                foreach (var report in list)
-                {
-                    // Подгружаем категорию вручную для каждой жалобы
-                    report.Category = db.Categories.FirstOrDefault(c => c.Id == report.CategoryId);
-                    Reports.Add(report);
-                }
-            }
+            using var db = new ApplicationDbContext();
+
+            var list = db.Reports
+                .Include(r => r.Category)
+                .Where(r => r.AuthorId == user.Id)
+                .ToList();
+
+            foreach (var report in list)
+                Reports.Add(report);
         }
-        catch (System.Exception)
-        {
-            // ошибка
-        }
+        catch (System.Exception) { }
     }
 }

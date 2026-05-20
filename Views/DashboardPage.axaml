@@ -7,7 +7,7 @@
     <ScrollViewer>
         <StackPanel Spacing="24" Margin="0,8,0,0">
 
-            <!-- Приветствие -->
+            
             <StackPanel Spacing="4">
                 <TextBlock FontSize="24" FontWeight="Bold" Foreground="#1A1F2E">
                     <Run Text="Привет, "/>
@@ -18,10 +18,10 @@
                            FontSize="14" Foreground="#6C757D"/>
             </StackPanel>
 
-            <!-- Карточки статистики -->
+            
             <WrapPanel Orientation="Horizontal">
 
-                <!-- Всего -->
+                
                 <Border Width="200" Height="110" Background="White" CornerRadius="12"
                         Margin="0,0,16,16" BoxShadow="0 2 12 0 #15000000">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6">
@@ -33,7 +33,7 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Новые -->
+                
                 <Border Width="200" Height="110" Background="White" CornerRadius="12"
                         Margin="0,0,16,16" BoxShadow="0 2 12 0 #15000000">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6">
@@ -45,7 +45,7 @@
                     </StackPanel>
                 </Border>
 
-                <!-- В работе -->
+                
                 <Border Width="200" Height="110" Background="White" CornerRadius="12"
                         Margin="0,0,16,16" BoxShadow="0 2 12 0 #15000000">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6">
@@ -57,7 +57,7 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Решено -->
+                
                 <Border Width="200" Height="110" Background="White" CornerRadius="12"
                         Margin="0,0,16,16" BoxShadow="0 2 12 0 #15000000">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6">
@@ -70,7 +70,7 @@
                 </Border>
             </WrapPanel>
 
-            <!-- Информационный блок -->
+            
             <Border Background="White" CornerRadius="12" Padding="24"
                     BoxShadow="0 2 12 0 #15000000">
                 <StackPanel Spacing="12">
@@ -120,3 +120,4 @@
         </StackPanel>
     </ScrollViewer>
 </UserControl>
+

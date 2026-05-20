@@ -6,10 +6,12 @@ namespace ReportSystem.Views;
 
 public partial class MainWindow : Window
 {
-    private readonly MainWindowViewModel _vm;
+    private MainWindowViewModel? _vm;
 
-    // Нужен для Avalonia XAML loader
-    public MainWindow() : this(new Models.User { FullName = "Тест", Role = new Models.Role { Name = "Student" } }) { }
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
 
     public MainWindow(User user)
     {
@@ -17,75 +19,37 @@ public partial class MainWindow : Window
         _vm = new MainWindowViewModel(user);
         DataContext = _vm;
 
-        // Ученик / Учитель
-        WireStudentNav();
-        // Администратор
-        WireAdminNav();
-        // Преподаватель
-        WireTeacherNav();
-        // Выход
-        WireLogout();
-    }
-
-    private void WireTeacherNav()
-    {
-        var btnDash    = this.FindControl<Button>("NavTeacherDash");
-        var btnReports = this.FindControl<Button>("NavTeacherReports");
-
-        if (btnDash != null)
-            btnDash.Click += (_, _) => { _vm.SelectedMenuIndex = 0; SetActive(btnDash, btnReports); };
-        if (btnReports != null)
-            btnReports.Click += (_, _) => { _vm.SelectedMenuIndex = 1; SetActive(btnReports, btnDash); };
-    }
-
-    private void WireStudentNav()
-    {
-        var btnDash   = this.FindControl<Button>("NavDashboard");
+        var btnDash = this.FindControl<Button>("NavDashboard");
         var btnCreate = this.FindControl<Button>("NavCreate");
-        var btnMy     = this.FindControl<Button>("NavMy");
+        var btnMy = this.FindControl<Button>("NavMy");
+        
+        if (btnDash != null) btnDash.Click += (s, e) => _vm.SelectedMenuIndex = 0;
+        if (btnCreate != null) btnCreate.Click += (s, e) => _vm.SelectedMenuIndex = 1;
+        if (btnMy != null) btnMy.Click += (s, e) => _vm.SelectedMenuIndex = 2;
 
-        if (btnDash != null)
-            btnDash.Click += (_, _) => { _vm.SelectedMenuIndex = 0; SetActive(btnDash, btnCreate, btnMy); };
-        if (btnCreate != null)
-            btnCreate.Click += (_, _) => { _vm.SelectedMenuIndex = 1; SetActive(btnCreate, btnDash, btnMy); };
-        if (btnMy != null)
-            btnMy.Click += (_, _) => { _vm.SelectedMenuIndex = 2; SetActive(btnMy, btnDash, btnCreate); };
-    }
+        var btnTeacherDash = this.FindControl<Button>("NavTeacherDash");
+        var btnTeacherReports = this.FindControl<Button>("NavTeacherReports");
+        
+        if (btnTeacherDash != null) btnTeacherDash.Click += (s, e) => _vm.SelectedMenuIndex = 0;
+        if (btnTeacherReports != null) btnTeacherReports.Click += (s, e) => _vm.SelectedMenuIndex = 1;
 
-    private void WireAdminNav()
-    {
-        var btnDash    = this.FindControl<Button>("NavAdminDash");
-        var btnReports = this.FindControl<Button>("NavAdminReports");
-        var btnUsers   = this.FindControl<Button>("NavAdminUsers");
+        var btnAdminDash = this.FindControl<Button>("NavAdminDash");
+        var btnAdminReports = this.FindControl<Button>("NavAdminReports");
+        var btnAdminUsers = this.FindControl<Button>("NavAdminUsers");
 
-        if (btnDash != null)
-            btnDash.Click += (_, _) => { _vm.SelectedMenuIndex = 0; SetActive(btnDash, btnReports, btnUsers); };
-        if (btnReports != null)
-            btnReports.Click += (_, _) => { _vm.SelectedMenuIndex = 1; SetActive(btnReports, btnDash, btnUsers); };
-        if (btnUsers != null)
-            btnUsers.Click += (_, _) => { _vm.SelectedMenuIndex = 2; SetActive(btnUsers, btnDash, btnReports); };
-    }
+        if (btnAdminDash != null) btnAdminDash.Click += (s, e) => _vm.SelectedMenuIndex = 0;
+        if (btnAdminReports != null) btnAdminReports.Click += (s, e) => _vm.SelectedMenuIndex = 1;
+        if (btnAdminUsers != null) btnAdminUsers.Click += (s, e) => _vm.SelectedMenuIndex = 2;
 
-    private void WireLogout()
-    {
         var logoutBtn = this.FindControl<Button>("LogoutBtn");
         if (logoutBtn != null)
-            logoutBtn.Click += (_, _) =>
+        {
+            logoutBtn.Click += (s, e) =>
             {
                 var loginWindow = new LoginWindow();
                 loginWindow.Show();
                 this.Close();
             };
-    }
-
-    private static void SetActive(Button active, params Button?[] others)
-    {
-        active.Classes.Remove("NavBtn");
-        active.Classes.Add("NavBtnActive");
-        foreach (var btn in others)
-        {
-            btn?.Classes.Remove("NavBtnActive");
-            btn?.Classes.Add("NavBtn");
         }
     }
 }

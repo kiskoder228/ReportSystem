@@ -54,7 +54,7 @@
         </Style>
     </Window.Styles>
 
-    <!-- Центрированная карточка -->
+    
     <Border Background="White" CornerRadius="10"
             Margin="40" Padding="36"
             VerticalAlignment="Center">
@@ -68,14 +68,14 @@
                        FontSize="13" Foreground="#6C757D"
                        Margin="0,0,0,24"/>
 
-            <!-- Логин -->
+            
             <TextBlock Text="Логин" FontWeight="SemiBold" FontSize="13"
                        Foreground="#495057" Margin="0,0,0,6"/>
             <TextBox Text="{Binding Login}"
                      Watermark="Введите логин"
                      Margin="0,0,0,16"/>
 
-            <!-- Пароль -->
+            
             <TextBlock Text="Пароль" FontWeight="SemiBold" FontSize="13"
                        Foreground="#495057" Margin="0,0,0,6"/>
             <TextBox Text="{Binding Password}"
@@ -96,13 +96,13 @@
                 </TextBox.InnerRightContent>
             </TextBox>
 
-            <!-- Запомнить -->
+            
             <CheckBox IsChecked="{Binding RememberMe}"
                       Content="Запомнить меня"
                       FontSize="13" Foreground="#6C757D"
                       Margin="0,0,0,20"/>
 
-            <!-- Сообщение об ошибке -->
+            
             <Border Background="#FFF3F3" CornerRadius="6" Padding="10,8"
                     Margin="0,0,0,14"
                     IsVisible="{Binding HasMessage}">
@@ -112,13 +112,13 @@
                            TextWrapping="Wrap"/>
             </Border>
 
-            <!-- Кнопка входа -->
+            
             <Button Command="{Binding LoginCommand}"
                     Content="Войти"
                     Classes="PrimaryBtn"
                     Margin="0,0,0,16"/>
 
-            <!-- Кнопка регистрации -->
+            
             <Button Name="OpenRegisterBtn"
                     Content="Нет аккаунта? Зарегистрироваться"
                     Classes="LinkBtn"/>
