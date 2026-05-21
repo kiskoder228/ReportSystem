@@ -43,7 +43,20 @@ public class ApplicationDbContext : DbContext
             .WithMany()
             .HasForeignKey(r => r.StatusId);
 
-        // Простое заполнение категорий, чтобы не вводить вручную
+        // Простое заполнение данных, чтобы не вводить вручную
+        modelBuilder.Entity<Role>().HasData(
+            new Role { Id = 1, Name = "Admin" },
+            new Role { Id = 2, Name = "Teacher" },
+            new Role { Id = 3, Name = "Student" }
+        );
+
+        modelBuilder.Entity<ReportStatus>().HasData(
+            new ReportStatus { Id = 1, Name = "New" },
+            new ReportStatus { Id = 2, Name = "InProgress" },
+            new ReportStatus { Id = 3, Name = "Resolved" },
+            new ReportStatus { Id = 4, Name = "Rejected" }
+        );
+
         modelBuilder.Entity<Category>().HasData(
             new Category { Id = 1, Name = "Списывание", Description = "Списывание на экзамене", SeverityLevel = 2 },
             new Category { Id = 2, Name = "Буллинг", Description = "Травля", SeverityLevel = 3 },

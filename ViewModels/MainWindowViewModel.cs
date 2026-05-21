@@ -47,16 +47,29 @@ public class MainWindowViewModel : ObservableObject
 
     private static readonly Dictionary<string, string> RoleLabels = new()
     {
-        ["Admin"] = "Администратор",
-        ["Teacher"] = "Преподаватель",
-        ["Student"] = "Ученик"
+        { "Admin", "Администратор" },
+        { "Teacher", "Преподаватель" },
+        { "Student", "Ученик" }
     };
 
     public MainWindowViewModel(User user)
     {
         CurrentUser = user;
         UserName = user.FullName;
-        UserRole = user.Role != null && RoleLabels.TryGetValue(user.Role.Name, out var label) ? label : (user.Role?.Name ?? "Unknown");
+
+        if (user.Role != null && RoleLabels.ContainsKey(user.Role.Name))
+        {
+            UserRole = RoleLabels[user.Role.Name];
+        }
+        else if (user.Role != null)
+        {
+            UserRole = user.Role.Name;
+        }
+        else
+        {
+            UserRole = "Unknown";
+        }
+
         NavigateTo(1);
     }
 
@@ -64,32 +77,20 @@ public class MainWindowViewModel : ObservableObject
     {
         if (IsAdmin)
         {
-            CurrentPage = index switch
-            {
-                0 => new DashboardPageViewModel(CurrentUser),
-                1 => new AdminReportsViewModel(CurrentUser),
-                2 => (object)new AdminUsersViewModel(CurrentUser),
-                _ => CurrentPage
-            };
+            if (index == 0) CurrentPage = new DashboardPageViewModel(CurrentUser);
+            else if (index == 1) CurrentPage = new AdminReportsViewModel(CurrentUser);
+            else if (index == 2) CurrentPage = new AdminUsersViewModel(CurrentUser);
         }
         else if (IsTeacher)
         {
-            CurrentPage = index switch
-            {
-                0 => new DashboardPageViewModel(CurrentUser),
-                1 => (object)new AdminReportsViewModel(CurrentUser),
-                _ => CurrentPage
-            };
+            if (index == 0) CurrentPage = new DashboardPageViewModel(CurrentUser);
+            else if (index == 1) CurrentPage = new AdminReportsViewModel(CurrentUser);
         }
         else if (IsStudent)
         {
-            CurrentPage = index switch
-            {
-                0 => new DashboardPageViewModel(CurrentUser),
-                1 => new CreateReportViewModel(CurrentUser),
-                2 => (object)new MyReportsViewModel(CurrentUser),
-                _ => CurrentPage
-            };
+            if (index == 0) CurrentPage = new DashboardPageViewModel(CurrentUser);
+            else if (index == 1) CurrentPage = new CreateReportViewModel(CurrentUser);
+            else if (index == 2) CurrentPage = new MyReportsViewModel(CurrentUser);
         }
     }
 }

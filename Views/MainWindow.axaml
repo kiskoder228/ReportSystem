@@ -3,45 +3,95 @@
         xmlns:vm="using:ReportSystem.ViewModels"
         x:Class="ReportSystem.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Система информирования о нарушениях"
-        Width="900" Height="600"
-        WindowStartupLocation="CenterScreen">
+        Title="Система мониторинга нарушений"
+        Width="1000" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F2F5">
 
-    <Grid ColumnDefinitions="200,*">
+    <Window.Styles>
+        <Style Selector="Button.NavBtn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E2E8F0"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Margin" Value="10,2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.NavBtn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1E293B"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.LogoutBtn">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.LogoutBtn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="240,*">
         
-        <StackPanel Grid.Column="0" Background="LightGray">
-            <TextBlock Text="Мониторинг" FontSize="20" FontWeight="Bold" Margin="10"/>
-            <TextBlock Text="Система нарушений" FontSize="12" Margin="10,0,10,20"/>
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="#0F172A">
+            <Grid RowDefinitions="Auto,*,Auto">
+                
+                <StackPanel Grid.Row="0" Margin="15,20,15,20">
+                    <TextBlock Text="Мониторинг" FontSize="20" FontWeight="Bold" Foreground="White" Margin="5,0,0,0"/>
+                    <TextBlock Text="Система нарушений" FontSize="12" Foreground="#94A3B8" Margin="5,4,0,20"/>
 
-            <StackPanel Margin="10">
-                <TextBlock Text="Профиль:" FontWeight="Bold"/>
-                <TextBlock Text="{Binding UserName}" />
-                <TextBlock Text="{Binding UserRole}" Margin="0,0,0,20"/>
-
-                <TextBlock Text="МЕНЮ:" FontWeight="Bold" Margin="0,0,0,10"/>
-
-                <StackPanel IsVisible="{Binding IsStudent}">
-                    <Button Name="NavDashboard" Content="Главная" Width="180" Margin="0,5"/>
-                    <Button Name="NavCreate" Content="Создать жалобу" Width="180" Margin="0,5"/>
-                    <Button Name="NavMy" Content="Мои обращения" Width="180" Margin="0,5"/>
+                    <Border Background="#1E293B" CornerRadius="8" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="{Binding UserName}" FontWeight="SemiBold" Foreground="White" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding UserRole}" FontSize="12" Foreground="#38BDF8" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
-                <StackPanel IsVisible="{Binding IsTeacher}">
-                    <Button Name="NavTeacherDash" Content="Главная" Width="180" Margin="0,5"/>
-                    <Button Name="NavTeacherReports" Content="Список нарушений" Width="180" Margin="0,5"/>
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel>
+                        <TextBlock Text="МЕНЮ" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="15,10,0,10"/>
+
+                        <StackPanel IsVisible="{Binding IsStudent}">
+                            <Button Name="NavDashboard" Content="Главная" Classes="NavBtn"/>
+                            <Button Name="NavCreate" Content="Создать жалобу" Classes="NavBtn"/>
+                            <Button Name="NavMy" Content="Мои обращения" Classes="NavBtn"/>
+                        </StackPanel>
+
+                        <StackPanel IsVisible="{Binding IsTeacher}">
+                            <Button Name="NavTeacherDash" Content="Главная" Classes="NavBtn"/>
+                            <Button Name="NavTeacherReports" Content="Список нарушений" Classes="NavBtn"/>
+                        </StackPanel>
+
+                        <StackPanel IsVisible="{Binding IsAdmin}">
+                            <Button Name="NavAdminDash" Content="Главная" Classes="NavBtn"/>
+                            <Button Name="NavAdminReports" Content="Все обращения" Classes="NavBtn"/>
+                            <Button Name="NavAdminUsers" Content="Пользователи" Classes="NavBtn"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2" Margin="0,0,0,10">
+                    <Button Name="LogoutBtn" Content="Выйти" Classes="LogoutBtn"/>
                 </StackPanel>
+            </Grid>
+        </Border>
 
-                <StackPanel IsVisible="{Binding IsAdmin}">
-                    <Button Name="NavAdminDash" Content="Главная" Width="180" Margin="0,5"/>
-                    <Button Name="NavAdminReports" Content="Все обращения" Width="180" Margin="0,5"/>
-                    <Button Name="NavAdminUsers" Content="Пользователи" Width="180" Margin="0,5"/>
-                </StackPanel>
-            </StackPanel>
-
-            <Button Name="LogoutBtn" Content="Выйти" Width="180" Margin="10,50,10,10" Background="IndianRed" Foreground="White"/>
-        </StackPanel>
-
-        <Border Grid.Column="1" Padding="20">
+        <!-- Main Content -->
+        <Border Grid.Column="1" Padding="24">
             <ContentControl Content="{Binding CurrentPage}"/>
         </Border>
 

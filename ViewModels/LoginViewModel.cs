@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using BC = BCrypt.Net.BCrypt;
 
@@ -74,7 +75,7 @@ public class LoginViewModel : ObservableObject
         {
             using var db = new ApplicationDbContext();
 
-            var user = db.Users.FirstOrDefault(u => u.Login == Login);
+            var user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Login == Login);
 
             if (user != null && BC.Verify(Password, user.PasswordHash))
                 LoginSucceeded?.Invoke(user);

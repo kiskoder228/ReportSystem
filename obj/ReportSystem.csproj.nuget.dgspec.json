@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Projects\\ReportsSystem\\ReportSystem.csproj": {}
+    "C:\\Projects\\ReportsSystem\\ReportSystem.csproj": {}
   },
   "projects": {
-    "c:\\Projects\\ReportsSystem\\ReportSystem.csproj": {
+    "C:\\Projects\\ReportsSystem\\ReportSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Projects\\ReportsSystem\\ReportSystem.csproj",
+        "projectUniqueName": "C:\\Projects\\ReportsSystem\\ReportSystem.csproj",
         "projectName": "ReportSystem",
-        "projectPath": "c:\\Projects\\ReportsSystem\\ReportSystem.csproj",
+        "projectPath": "C:\\Projects\\ReportsSystem\\ReportSystem.csproj",
         "packagesPath": "C:\\Users\\awsedrggft\\.nuget\\packages\\",
-        "outputPath": "c:\\Projects\\ReportsSystem\\obj\\",
+        "outputPath": "C:\\Projects\\ReportsSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
