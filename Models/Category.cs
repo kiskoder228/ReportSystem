@@ -7,8 +7,7 @@ public class Category
     public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
-    public int SeverityLevel { get; set; } = 1; // 1 - низкий, 2 - средний, 3 - высокий
+    public int SeverityLevel { get; set; } = 1;
 
-    // Навигационное свойство
     public List<Report> Reports { get; set; } = new();
 }

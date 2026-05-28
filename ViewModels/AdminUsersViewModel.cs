@@ -1,15 +1,14 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using ReportSystem.Data;
 using ReportSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ReportSystem.ViewModels;
 
-public class AdminUsersViewModel : ObservableObject
+public class AdminUsersViewModel : ViewModelBase
 {
     private User? _selectedUser;
     private string _searchText = "";
@@ -33,7 +32,7 @@ public class AdminUsersViewModel : ObservableObject
         }
     }
 
-    public IRelayCommand<string> ChangeRoleCommand { get; }
+    public ICommand ChangeRoleCommand { get; }
 
     public AdminUsersViewModel(User currentAdmin)
     {

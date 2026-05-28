@@ -184,7 +184,6 @@ C:\Projects\ReportsSystem\bin\Debug\net8.0\Avalonia.Win32.dll
 C:\Projects\ReportsSystem\bin\Debug\net8.0\Avalonia.X11.dll
 C:\Projects\ReportsSystem\bin\Debug\net8.0\AvaloniaUI.DiagnosticsSupport.Avalonia.dll
 C:\Projects\ReportsSystem\bin\Debug\net8.0\BCrypt.Net-Next.dll
-C:\Projects\ReportsSystem\bin\Debug\net8.0\CommunityToolkit.Mvvm.dll
 C:\Projects\ReportsSystem\bin\Debug\net8.0\HarfBuzzSharp.dll
 C:\Projects\ReportsSystem\bin\Debug\net8.0\Humanizer.dll
 C:\Projects\ReportsSystem\bin\Debug\net8.0\MicroCom.Runtime.dll

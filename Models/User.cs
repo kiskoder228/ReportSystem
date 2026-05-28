@@ -13,8 +13,6 @@ public class User
     public Role? Role { get; set; }
     public string? Email { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    // Навигационные свойства
     public List<Report> Reports { get; set; } = new();
     public List<Report> ReviewedReports { get; set; } = new();
 }

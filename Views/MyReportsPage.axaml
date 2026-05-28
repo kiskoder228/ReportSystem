@@ -2,50 +2,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:ReportSystem.ViewModels"
              xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             xmlns:m="using:ReportSystem.Models"
              x:Class="ReportSystem.Views.MyReportsPage"
              x:DataType="vm:MyReportsViewModel">
 
-    <StackPanel Spacing="20">
+    <StackPanel>
 
-        <TextBlock Text="📋 Мои обращения"
-                   FontSize="22" FontWeight="Bold" Foreground="#1A1F2E"/>
-        <TextBlock Text="История всех ваших поданных обращений"
-                   FontSize="13" Foreground="#6C757D"/>
+        <TextBlock Text="Мои обращения"/>
 
-        
-        <Border Background="White" CornerRadius="12"
-                BoxShadow="0 2 12 0 #15000000" Padding="0">
+        <Border BorderBrush="Black" BorderThickness="1">
             <dg:DataGrid ItemsSource="{Binding Reports}"
+                      x:CompileBindings="False"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       GridLinesVisibility="Horizontal"
-                      HeadersVisibility="Column"
-                      RowBackground="White"
-                      FontSize="13"
-                      MinHeight="300">
+                      HeadersVisibility="Column">
                 <dg:DataGrid.Columns>
-                    <dg:DataGridTextColumn Header="№" Binding="{Binding Id, Mode=OneWay}" Width="60"/>
-                    <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" Width="160"/>
-                    <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" Width="*"/>
-                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name, Mode=OneWay}" Width="110"/>
-                    <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy, Mode=OneWay}" Width="110"/>
+                    <dg:DataGridTextColumn Header="№" Binding="{Binding Id, Mode=OneWay}" x:DataType="m:Report"/>
+                    <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" x:DataType="m:Report"/>
+                    <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" x:DataType="m:Report"/>
+                    <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name, Mode=OneWay}" x:DataType="m:Report"/>
+                    <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy, Mode=OneWay}" x:DataType="m:Report"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </Border>
-
         
-        <Border IsVisible="{Binding !Reports.Count}"
-                Background="White" CornerRadius="12" Padding="40"
-                BoxShadow="0 2 12 0 #15000000">
-            <StackPanel HorizontalAlignment="Center" Spacing="12">
-                <TextBlock Text="📭" FontSize="48" HorizontalAlignment="Center"/>
-                <TextBlock Text="У вас пока нет обращений" FontSize="16" FontWeight="SemiBold"
-                           Foreground="#1A1F2E" HorizontalAlignment="Center"/>
-                <TextBlock Text="Создайте первое обращение через вкладку «Создать жалобу»"
-                           FontSize="13" Foreground="#6C757D" HorizontalAlignment="Center"/>
+        <Border IsVisible="{Binding !Reports.Count}">
+            <StackPanel>
+                <TextBlock Text="У вас пока нет обращений"/>
+                <TextBlock Text="Создайте первое обращение через вкладку «Создать жалобу»"/>
             </StackPanel>
         </Border>
 
     </StackPanel>
 </UserControl>
-

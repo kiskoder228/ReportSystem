@@ -1,12 +1,11 @@
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-public class DashboardPageViewModel : ObservableObject
+public class DashboardPageViewModel : ViewModelBase
 {
     private int _totalReports;
     private int _inProgressReports;

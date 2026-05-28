@@ -1,17 +1,17 @@
 using System;
 using System.Linq;
 using Avalonia.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using ReportSystem.Models;
 using BC = BCrypt.Net.BCrypt;
 
 namespace ReportSystem.ViewModels;
 
-public class RegisterViewModel : ObservableObject
+public class RegisterViewModel : ViewModelBase
 {
-    private string _fullName = "";
+    private string _fullName = string.Empty;
     private string _login = "";
     private string _password = "";
     private string _statusMessage = "";
@@ -38,7 +38,9 @@ public class RegisterViewModel : ObservableObject
 
     public string SelectedRole { get; } = "Student";
 
-    public IRelayCommand RegisterCommand { get; }
+    public ICommand RegisterCommand { get; }
+
+    public event Action<Models.User>? RegisterSucceeded;
 
     public RegisterViewModel()
     {

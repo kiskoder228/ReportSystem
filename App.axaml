@@ -15,13 +15,11 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Основной синий цвет проекта -->
             <Color x:Key="MainBlue">#1976D2</Color>
             <SolidColorBrush x:Key="MainBlueBrush" Color="#1976D2"/>
 
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <!-- Перебиваем системные цвета акцента для светлой темы -->
                     <Color x:Key="SystemAccentColor">#1976D2</Color>
                     <Color x:Key="SystemAccentColorLight1">#42A5F5</Color>
                     <Color x:Key="SystemAccentColorLight2">#90CAF9</Color>
@@ -30,7 +28,6 @@
                     <Color x:Key="SystemAccentColorDark2">#0D47A1</Color>
                     <Color x:Key="SystemAccentColorDark3">#0A3070</Color>
                     
-                    <!-- Принудительно задаем кисти, которые использует Fluent для кнопок и выделений -->
                     <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="#1976D2"/>
                     <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="#1976D2" Opacity="0.1"/>
                     <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="#1976D2" Opacity="0.2"/>

@@ -4,107 +4,53 @@
              x:Class="ReportSystem.Views.CreateReportPage"
              x:DataType="vm:CreateReportViewModel">
 
-    <UserControl.Styles>
-        <Style Selector="TextBox">
-            <Setter Property="Background" Value="#F8F9FA"/>
-            <Setter Property="BorderBrush" Value="#DEE2E6"/>
-            <Setter Property="BorderThickness" Value="1.5"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-        <Style Selector="ComboBox">
-            <Setter Property="Background" Value="#F8F9FA"/>
-            <Setter Property="BorderBrush" Value="#DEE2E6"/>
-            <Setter Property="BorderThickness" Value="1.5"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Height" Value="44"/>
-            <Setter Property="Padding" Value="12,0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        </Style>
-    </UserControl.Styles>
-
     <ScrollViewer>
         <StackPanel Spacing="20" MaxWidth="680">
 
-            <TextBlock Text="📝 Новое обращение"
-                       FontSize="22" FontWeight="Bold" Foreground="#1A1F2E"/>
-            <TextBlock Text="Опишите нарушение как можно подробнее. Все данные защищены."
-                       FontSize="13" Foreground="#6C757D"/>
+            <TextBlock Text="Создать новую жалобу" FontSize="22" FontWeight="Bold"/>
 
-            
-            <Border Background="White" CornerRadius="12" Padding="28"
-                    BoxShadow="0 2 12 0 #15000000">
+            <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Padding="20">
                 <StackPanel Spacing="20">
-
                     
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="Категория нарушения *" FontWeight="SemiBold"
-                                   FontSize="13" Foreground="#495057"/>
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Категория нарушения *"/>
                         <ComboBox ItemsSource="{Binding Categories}"
                                   SelectedItem="{Binding SelectedCategory}"
-                                  DisplayMemberBinding="{Binding Name}"/>
+                                  DisplayMemberBinding="{Binding Name}"
+                                  HorizontalAlignment="Stretch"/>
                     </StackPanel>
 
-                    
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="Описание *" FontWeight="SemiBold"
-                                   FontSize="13" Foreground="#495057"/>
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Описание ситуации *"/>
                         <TextBox Text="{Binding Description}"
-                                 Watermark="Подробно опишите произошедшее: дата, место, участники..."
+                                 Watermark="Подробно опишите произошедшее"
                                  AcceptsReturn="True"
                                  TextWrapping="Wrap"
                                  Height="140"/>
                     </StackPanel>
 
-                    
-                    <Border Background="#F8F9FA" CornerRadius="8" Padding="16,12">
-                        <StackPanel Orientation="Horizontal" Spacing="12">
-                            <CheckBox IsChecked="{Binding IsAnonymous}" VerticalAlignment="Center"/>
-                            <StackPanel Spacing="2">
-                                <TextBlock Text="Подать анонимно" FontWeight="SemiBold"
-                                           FontSize="13" Foreground="#1A1F2E"/>
-                                <TextBlock Text="Ваше имя не будет раскрыто администрации"
-                                           FontSize="12" Foreground="#6C757D"/>
-                            </StackPanel>
-                        </StackPanel>
+                    <CheckBox IsChecked="{Binding IsAnonymous}">
+                        <TextBlock Text="Отправить анонимно"/>
+                    </CheckBox>
+
+                    <Border Background="White" Padding="15" IsVisible="{Binding HasMessage}">
+                        <TextBlock Text="{Binding StatusMessage}" Foreground="Black"/>
                     </Border>
 
-                    
-                    <Border CornerRadius="8" Padding="12,10"
-                            IsVisible="{Binding HasMessage}">
-                        <Border.Background>
-                            <SolidColorBrush Color="#E8F5E9"/>
-                        </Border.Background>
-                        <TextBlock Text="{Binding StatusMessage}"
-                                   Foreground="#2E7D32" FontSize="13"/>
-                    </Border>
-
-                    
                     <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                         <Button Grid.Column="0"
                                 Command="{Binding SubmitCommand}"
-                                Content="📤  Отправить обращение"
-                                Background="#1976D2" Foreground="White"
-                                Height="46" CornerRadius="8"
-                                FontWeight="SemiBold" FontSize="14"
+                                Content="Отправить жалобу"
                                 HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Center"
-                                Cursor="Hand"/>
+                                HorizontalContentAlignment="Center"/>
                         <Button Grid.Column="1"
                                 Command="{Binding ClearCommand}"
                                 Content="Очистить"
-                                Background="#F8F9FA" Foreground="#6C757D"
-                                Height="46" CornerRadius="8"
-                                FontSize="14" Cursor="Hand"
                                 Padding="20,0"/>
                     </Grid>
 
                 </StackPanel>
             </Border>
-
         </StackPanel>
     </ScrollViewer>
 </UserControl>
-

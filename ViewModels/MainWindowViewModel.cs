@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using CommunityToolkit.Mvvm.ComponentModel;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-public class MainWindowViewModel : ObservableObject
+public class MainWindowViewModel : ViewModelBase
 {
     private string _userName = "";
     private string _userRole = "";

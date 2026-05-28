@@ -15,7 +15,6 @@
           "Avalonia.Themes.Fluent": "11.3.4",
           "AvaloniaUI.DiagnosticsSupport": "2.2.1",
           "BCrypt.Net-Next": "4.1.0",
-          "CommunityToolkit.Mvvm": "8.4.1",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.0",
           "AvaloniaUI.DiagnosticsSupport.Avalonia": "2.2.1.0"
@@ -242,14 +241,6 @@
           "lib/netstandard2.1/BCrypt.Net-Next.dll": {
             "assemblyVersion": "4.1.0.0",
             "fileVersion": "4.1.0.0"
-          }
-        }
-      },
-      "CommunityToolkit.Mvvm/8.4.1": {
-        "runtime": {
-          "lib/net8.0/CommunityToolkit.Mvvm.dll": {
-            "assemblyVersion": "8.4.0.0",
-            "fileVersion": "8.4.1.1"
           }
         }
       },
@@ -1060,13 +1051,6 @@
       "sha512": "sha512-5YT3DKllmtkyW68PjURu/V1TOe4MKiByKwsRNVcfYE1S5KuFTeozdmKzyNzolKiQF391OXCaQtINvYT3j1ERzQ==",
       "path": "bcrypt.net-next/4.1.0",
       "hashPath": "bcrypt.net-next.4.1.0.nupkg.sha512"
-    },
-    "CommunityToolkit.Mvvm/8.4.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-BTRteP8SvFyd/4KAreIFJBcxD2O9trLxLDD/p8YkSDDrfFOzy2U8cHyz6r+5Eh4kDhJdzAVglei6a+Bh4jCpUA==",
-      "path": "communitytoolkit.mvvm/8.4.1",
-      "hashPath": "communitytoolkit.mvvm.8.4.1.nupkg.sha512"
     },
     "HarfBuzzSharp/8.3.1.1": {
       "type": "package",

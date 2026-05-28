@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ANc0DSR7hjI=",
+  "dgSpecHash": "KYcLsNCooBM=",
   "success": true,
   "projectFilePath": "C:\\Projects\\ReportsSystem\\ReportSystem.csproj",
   "expectedPackageFiles": [
@@ -19,7 +19,6 @@
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.x11\\11.3.4\\avalonia.x11.11.3.4.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avaloniaui.diagnosticssupport\\2.2.1\\avaloniaui.diagnosticssupport.2.2.1.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
-    "C:\\Users\\awsedrggft\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.1\\communitytoolkit.mvvm.8.4.1.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\harfbuzzsharp\\8.3.1.1\\harfbuzzsharp.8.3.1.1.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\harfbuzzsharp.nativeassets.linux\\8.3.1.1\\harfbuzzsharp.nativeassets.linux.8.3.1.1.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\8.3.1.1\\harfbuzzsharp.nativeassets.macos.8.3.1.1.nupkg.sha512",

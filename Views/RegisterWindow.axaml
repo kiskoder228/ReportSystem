@@ -7,118 +7,32 @@
         Width="460" Height="520"
         WindowStartupLocation="CenterScreen"
         CanResize="False"
-        Background="#F0F2F5">
+        Background="White">
 
-    <Window.Styles>
-        <Style Selector="TextBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#1A1F2E"/>
-            <Setter Property="BorderBrush" Value="#DEE2E6"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Padding" Value="10,0"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-        <Style Selector="TextBox /template/ Border#PART_BorderElement">
-            <Setter Property="Background" Value="White"/>
-        </Style>
-        <Style Selector="TextBox:focus">
-            <Setter Property="BorderBrush" Value="#1976D2"/>
-        </Style>
-        <Style Selector="Button.PrimaryBtn">
-            <Setter Property="Background" Value="#1976D2"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Height" Value="42"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-        <Style Selector="Button.PrimaryBtn:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#1565C0"/>
-        </Style>
-        <Style Selector="Button.LinkBtn">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#1976D2"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="0"/>
-        </Style>
-    </Window.Styles>
+    <Border Padding="36" VerticalAlignment="Center">
+        <StackPanel Spacing="10">
+            <TextBlock Text="Регистрация" FontSize="22" FontWeight="Bold"/>
+            <TextBlock Text="Заполните данные для создания аккаунта"/>
 
-    
-    <Border Background="White" CornerRadius="10"
-            Margin="40" Padding="36"
-            VerticalAlignment="Center">
-        <StackPanel Spacing="0">
+            <TextBlock Text="ФИО"/>
+            <TextBox Text="{Binding FullName}"/>
 
-            <TextBlock Text="Регистрация"
-                       FontSize="22" FontWeight="Bold"
-                       Foreground="#1A1F2E"
-                       Margin="0,0,0,4"/>
-            <TextBlock Text="Заполните данные для создания аккаунта"
-                       FontSize="13" Foreground="#6C757D"
-                       Margin="0,0,0,24"/>
+            <TextBlock Text="Логин"/>
+            <TextBox Text="{Binding Login}"/>
 
-            
-            <TextBlock Text="ФИО" FontWeight="SemiBold" FontSize="13"
-                       Foreground="#495057" Margin="0,0,0,6"/>
-            <TextBox Text="{Binding FullName}"
-                     Watermark="Иванов Иван Иванович"
-                     Margin="0,0,0,14"/>
+            <TextBlock Text="Пароль"/>
+            <TextBox Text="{Binding Password}" PasswordChar="*"/>
 
-            
-            <TextBlock Text="Логин" FontWeight="SemiBold" FontSize="13"
-                       Foreground="#495057" Margin="0,0,0,6"/>
-            <TextBox Text="{Binding Login}"
-                     Watermark="Придумайте логин"
-                     Margin="0,0,0,14"/>
-
-            
-            <TextBlock Text="Пароль" FontWeight="SemiBold" FontSize="13"
-                       Foreground="#495057" Margin="0,0,0,6"/>
-            <TextBox Text="{Binding Password}"
-                     PasswordChar="•"
-                     RevealPassword="{Binding ShowPassword}"
-                     Watermark="Придумайте пароль"
-                     Margin="0,0,0,14">
-                <TextBox.InnerRightContent>
-                    <ToggleButton IsChecked="{Binding ShowPassword}" 
-                                  Padding="10,0"
-                                  Background="Transparent"
-                                  BorderThickness="0"
-                                  Cursor="Hand">
-                        <PathIcon Data="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-                                  Width="16" Height="16"
-                                  Foreground="#6C757D"/>
-                    </ToggleButton>
-                </TextBox.InnerRightContent>
-            </TextBox>
-
-            
-            <Border Background="#FFF3F3" CornerRadius="6" Padding="10,8"
-                    Margin="0,0,0,14"
-                    IsVisible="{Binding HasMessage}">
-                <TextBlock Text="{Binding StatusMessage}"
-                           Foreground="{Binding MessageColor}"
-                           FontSize="13" TextWrapping="Wrap"/>
+            <Border Padding="20" IsVisible="{Binding HasMessage}">
+                <TextBlock Text="{Binding StatusMessage}" Foreground="Red"/>
             </Border>
 
-            
-            <Button Command="{Binding RegisterCommand}"
-                    Content="Зарегистрироваться"
-                    Classes="PrimaryBtn"
-                    Margin="0,0,0,16"/>
+            <Button Command="{Binding RegisterCommand}" Content="Зарегистрироваться" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 
-            <Button Name="BackToLoginBtn"
-                    Content="Уже есть аккаунт? Войти"
-                    Classes="LinkBtn"/>
-
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Уже есть аккаунт?"/>
+                <Button Name="BackToLoginBtn" Content="Войти"/>
+            </StackPanel>
         </StackPanel>
     </Border>
 </Window>

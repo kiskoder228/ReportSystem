@@ -20,7 +20,6 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
          {
-        // Теперь при запуске вылезет регистрация
             desktop.MainWindow = new Views.LoginWindow();
         }
 

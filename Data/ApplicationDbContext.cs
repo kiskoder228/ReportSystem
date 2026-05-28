@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using ReportSystem.Models;
 
@@ -5,7 +6,6 @@ namespace ReportSystem.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    // Таблицы в базе
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Report> Reports { get; set; } = null!;
@@ -21,7 +21,6 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Указываем связи, так как у нас два внешних ключа на таблицу Users
         modelBuilder.Entity<Report>()
             .HasOne(r => r.Author)
             .WithMany(u => u.Reports)
@@ -32,7 +31,6 @@ public class ApplicationDbContext : DbContext
             .WithMany(u => u.ReviewedReports)
             .HasForeignKey(r => r.ReviewedById);
 
-        // Настройка связей для Role и ReportStatus
         modelBuilder.Entity<User>()
             .HasOne(u => u.Role)
             .WithMany()
@@ -43,7 +41,6 @@ public class ApplicationDbContext : DbContext
             .WithMany()
             .HasForeignKey(r => r.StatusId);
 
-        // Простое заполнение данных, чтобы не вводить вручную
         modelBuilder.Entity<Role>().HasData(
             new Role { Id = 1, Name = "Admin" },
             new Role { Id = 2, Name = "Teacher" },
@@ -63,6 +60,18 @@ public class ApplicationDbContext : DbContext
             new Category { Id = 3, Name = "Прогулы", Description = "Пропуск занятий", SeverityLevel = 1 },
             new Category { Id = 4, Name = "Хулиганство", Description = "Нарушение порядка", SeverityLevel = 2 },
             new Category { Id = 5, Name = "Другое", Description = "Иные нарушения", SeverityLevel = 1 }
+        );
+
+        modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                FullName = "Администратор Системы",
+                Login = "admin",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin"),
+                RoleId = 1,
+                CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            }
         );
     }
 }

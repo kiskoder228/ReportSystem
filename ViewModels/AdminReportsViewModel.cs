@@ -1,15 +1,14 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using ReportSystem.Data;
 using ReportSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ReportSystem.ViewModels;
 
-public class AdminReportsViewModel : ObservableObject
+public class AdminReportsViewModel : ViewModelBase
 {
     private Report? _selectedReport;
     private string _searchText = "";
@@ -48,7 +47,7 @@ public class AdminReportsViewModel : ObservableObject
         }
     }
 
-    public IRelayCommand<string> ChangeStatusCommand { get; }
+    public ICommand ChangeStatusCommand { get; }
 
     public AdminReportsViewModel(User user)
     {
@@ -63,7 +62,11 @@ public class AdminReportsViewModel : ObservableObject
         {
             using var db = new ApplicationDbContext();
 
-            var query = db.Reports.Include(r => r.Status).AsEnumerable();
+            var query = db.Reports
+                .Include(r => r.Status)
+                .Include(r => r.Author)
+                .Include(r => r.Category)
+                .AsEnumerable();
 
             if (!string.IsNullOrWhiteSpace(SearchText))
                 query = query.Where(r => r.Description != null &&
@@ -74,8 +77,6 @@ public class AdminReportsViewModel : ObservableObject
 
             foreach (var report in query)
             {
-                report.Author = db.Users.FirstOrDefault(u => u.Id == report.AuthorId);
-                report.Category = db.Categories.FirstOrDefault(c => c.Id == report.CategoryId);
                 Reports.Add(report);
             }
         }

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using ReportSystem.Data;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-public class CreateReportViewModel : ObservableObject
+public class CreateReportViewModel : ViewModelBase
 {
     private readonly User _currentUser;
     private Category? _selectedCategory;
@@ -56,8 +55,8 @@ public class CreateReportViewModel : ObservableObject
         set => SetProperty(ref _isSuccess, value);
     }
 
-    public IRelayCommand SubmitCommand { get; }
-    public IRelayCommand ClearCommand { get; }
+    public ICommand SubmitCommand { get; }
+    public ICommand ClearCommand { get; }
 
     public CreateReportViewModel(User user)
     {

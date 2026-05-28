@@ -1,14 +1,13 @@
 using System;
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using ReportSystem.Data;
 using BC = BCrypt.Net.BCrypt;
 
 namespace ReportSystem.ViewModels;
 
-public class LoginViewModel : ObservableObject
+public class LoginViewModel : ViewModelBase
 {
     private string _login = string.Empty;
     private string _password = string.Empty;
@@ -52,7 +51,7 @@ public class LoginViewModel : ObservableObject
 
     public bool HasMessage => !string.IsNullOrEmpty(_errorMessage);
 
-    public IRelayCommand LoginCommand { get; }
+    public ICommand LoginCommand { get; }
 
     public event Action<Models.User>? LoginSucceeded;
 
