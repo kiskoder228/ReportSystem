@@ -1,66 +1,41 @@
 using System;
-using System.Linq;
-using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
-using ReportSystem.Data;
-using BC = BCrypt.Net.BCrypt;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ReportSystem.Data.Repositories;
 
 namespace ReportSystem.ViewModels;
 
-public class LoginViewModel : ViewModelBase
+public partial class LoginViewModel : ObservableObject
 {
+    private readonly IUserRepository _userRepository;
+
+    [ObservableProperty]
     private string _login = string.Empty;
+
+    [ObservableProperty]
     private string _password = string.Empty;
+
+    [ObservableProperty]
     private bool _rememberMe;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasMessage))]
     private string? _errorMessage;
+
+    [ObservableProperty]
     private bool _showPassword;
 
-    public string Login
-    {
-        get => _login;
-        set => SetProperty(ref _login, value);
-    }
-
-    public string Password
-    {
-        get => _password;
-        set => SetProperty(ref _password, value);
-    }
-
-    public bool ShowPassword
-    {
-        get => _showPassword;
-        set => SetProperty(ref _showPassword, value);
-    }
-
-    public bool RememberMe
-    {
-        get => _rememberMe;
-        set => SetProperty(ref _rememberMe, value);
-    }
-
-    public string? ErrorMessage
-    {
-        get => _errorMessage;
-        set
-        {
-            SetProperty(ref _errorMessage, value);
-            OnPropertyChanged(nameof(HasMessage));
-        }
-    }
-
-    public bool HasMessage => !string.IsNullOrEmpty(_errorMessage);
-
-    public ICommand LoginCommand { get; }
+    public bool HasMessage => !string.IsNullOrEmpty(ErrorMessage);
 
     public event Action<Models.User>? LoginSucceeded;
 
-    public LoginViewModel()
+    public LoginViewModel(IUserRepository userRepository)
     {
-        LoginCommand = new RelayCommand(ExecuteLogin);
+        _userRepository = userRepository;
     }
 
-    private void ExecuteLogin()
+    [RelayCommand]
+    private void DoLogin()
     {
         ErrorMessage = null;
 
@@ -72,14 +47,15 @@ public class LoginViewModel : ViewModelBase
 
         try
         {
-            using var db = new ApplicationDbContext();
-
-            var user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Login == Login);
-
-            if (user != null && BC.Verify(Password, user.PasswordHash))
+            var user = _userRepository.ValidateUser(Login, Password);
+            if (user != null)
+            {
                 LoginSucceeded?.Invoke(user);
+            }
             else
+            {
                 ErrorMessage = "Неверный логин или пароль";
+            }
         }
         catch (Exception ex)
         {

@@ -31,7 +31,7 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Уже есть аккаунт?"/>
-                <Button Name="BackToLoginBtn" Content="Войти"/>
+                <Button Content="Войти" Click="OnBackClick"/>
             </StackPanel>
         </StackPanel>
     </Border>

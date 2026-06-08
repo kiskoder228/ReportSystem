@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace ReportSystem.Views;
 
-public partial class CreateReportPage : UserControl
+public partial class AdminUsersView : UserControl
 {
-    public CreateReportPage()
+    public AdminUsersView()
     {
         InitializeComponent();
     }

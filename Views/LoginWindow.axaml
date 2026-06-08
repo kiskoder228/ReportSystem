@@ -28,11 +28,11 @@
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"/>
             </Border>
 
-            <Button Command="{Binding LoginCommand}" Content="Войти" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+            <Button Command="{Binding DoLoginCommand}" Content="Войти" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Нет аккаунта?" />
-                <Button Name="OpenRegisterBtn" Content="Зарегистрироваться"/>
+                <Button Content="Зарегистрироваться" Click="OnRegisterClick"/>
             </StackPanel>
         </StackPanel>
     </Border>

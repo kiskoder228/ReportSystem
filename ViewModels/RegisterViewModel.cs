@@ -1,50 +1,43 @@
 using System;
-using System.Linq;
 using Avalonia.Media;
-using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
-using ReportSystem.Data;
-using ReportSystem.Models;
-using BC = BCrypt.Net.BCrypt;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ReportSystem.Data.Repositories;
 
 namespace ReportSystem.ViewModels;
 
-public class RegisterViewModel : ViewModelBase
+public partial class RegisterViewModel : ObservableObject
 {
+    private readonly IUserRepository _userRepository;
+
+    [ObservableProperty]
     private string _fullName = string.Empty;
+
+    [ObservableProperty]
     private string _login = "";
+
+    [ObservableProperty]
     private string _password = "";
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasMessage))]
     private string _statusMessage = "";
+
+    [ObservableProperty]
     private IBrush _messageColor = Brushes.Red;
+
+    [ObservableProperty]
     private bool _showPassword;
 
-    public string FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
-    public string Login { get => _login; set => SetProperty(ref _login, value); }
-    public string Password { get => _password; set => SetProperty(ref _password, value); }
-    public bool ShowPassword { get => _showPassword; set => SetProperty(ref _showPassword, value); }
-
-    public string StatusMessage
-    {
-        get => _statusMessage;
-        set
-        {
-            SetProperty(ref _statusMessage, value);
-            OnPropertyChanged(nameof(HasMessage));
-        }
-    }
-
-    public bool HasMessage => !string.IsNullOrEmpty(_statusMessage);
-    public IBrush MessageColor { get => _messageColor; set => SetProperty(ref _messageColor, value); }
+    public bool HasMessage => !string.IsNullOrEmpty(StatusMessage);
 
     public string SelectedRole { get; } = "Student";
 
-    public ICommand RegisterCommand { get; }
-
     public event Action<Models.User>? RegisterSucceeded;
 
-    public RegisterViewModel()
+    public RegisterViewModel(IUserRepository userRepository)
     {
-        RegisterCommand = new RelayCommand(OnRegister);
+        _userRepository = userRepository;
     }
 
     private void ShowMessage(string message, IBrush color)
@@ -53,7 +46,8 @@ public class RegisterViewModel : ViewModelBase
         MessageColor = color;
     }
 
-    private void OnRegister()
+    [RelayCommand]
+    private void Register()
     {
         if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(FullName))
         {
@@ -63,28 +57,17 @@ public class RegisterViewModel : ViewModelBase
 
         try
         {
-            using var db = new ApplicationDbContext();
-
-            if (db.Users.Any(u => u.Login == Login))
+            if (_userRepository.UserExists(Login))
             {
                 ShowMessage("Логин уже занят!", Brushes.Red);
                 return;
             }
 
-            var role = db.Roles.FirstOrDefault(r => r.Name == SelectedRole);
-
-            var newUser = new User
-            {
-                FullName = FullName,
-                Login = Login,
-                PasswordHash = BC.HashPassword(Password),
-                Role = role
-            };
-
-            db.Users.Add(newUser);
-            db.SaveChanges();
+            var newUser = _userRepository.RegisterUser(FullName, Login, Password);
 
             ShowMessage("Регистрация успешна!", Brushes.Green);
+            
+            RegisterSucceeded?.Invoke(newUser);
         }
         catch (Exception ex)
         {

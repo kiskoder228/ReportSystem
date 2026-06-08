@@ -1,5 +1,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ReportSystem.Models;
 
 namespace ReportSystem.Data;
@@ -14,7 +15,14 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=ep-solitary-thunder-aqe0nh0x-pooler.c-8.us-east-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_SodbwOi1JPh4;SSL Mode=Require;Trust Server Certificate=true");
+        if (!optionsBuilder.IsConfigured)
+        {
+            var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+                .SetBasePath(System.AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

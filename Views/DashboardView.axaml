@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReportSystem.ViewModels"
+             x:Class="ReportSystem.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="10">
+            
+            <!-- Header -->
+            <StackPanel Spacing="5">
+                <TextBlock FontSize="24" FontWeight="Bold">
+                    <Run Text="Панель информации. Здравствуйте, "/>
+                    <Run Text="{Binding GreetingName}"/>
+                </TextBlock>
+                <TextBlock Text="Текущая статистика обращений по нарушениям дисциплины" Foreground="Gray"/>
+                <Separator/>
+            </StackPanel>
+
+            <!-- Statistics Grid -->
+            <UniformGrid Columns="4" Rows="1">
+                
+                <!-- Total -->
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#F9F9F9">
+                    <StackPanel Spacing="5" HorizontalAlignment="Center">
+                        <TextBlock Text="Всего заявок" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding TotalReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- New -->
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#FFF9C4">
+                    <StackPanel Spacing="5" HorizontalAlignment="Center">
+                        <TextBlock Text="Новые" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding NewReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- In Progress -->
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#E1BEE7">
+                    <StackPanel Spacing="5" HorizontalAlignment="Center">
+                        <TextBlock Text="В работе" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding InProgressReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Resolved -->
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#C8E6C9">
+                    <StackPanel Spacing="5" HorizontalAlignment="Center">
+                        <TextBlock Text="Решенные" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding ResolvedReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Help Guide -->
+            <Border BorderBrush="Gray" BorderThickness="1" Padding="15" Margin="5">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Инструкция для пользователя" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="1. Для подачи новой жалобы перейдите в меню 'Создать жалобу'."/>
+                    <TextBlock Text="2. Заполните описание нарушения, выберите подходящую категорию."/>
+                    <TextBlock Text="3. При необходимости поставьте галочку 'Анонимно' (ваше имя не будет видно)."/>
+                    <TextBlock Text="4. Отправьте форму. Администрация рассмотрит жалобу в рабочее время."/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

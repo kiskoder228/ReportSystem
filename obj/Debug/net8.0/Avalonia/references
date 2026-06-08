@@ -22,6 +22,7 @@ C:\Users\awsedrggft\.nuget\packages\avalonia.win32\11.3.4\lib\net8.0\Avalonia.Wi
 C:\Users\awsedrggft\.nuget\packages\avalonia.x11\11.3.4\lib\net8.0\Avalonia.X11.dll
 C:\Users\awsedrggft\.nuget\packages\avaloniaui.diagnosticssupport\2.2.1\lib\net8.0\v11\AvaloniaUI.DiagnosticsSupport.Avalonia.dll
 C:\Users\awsedrggft\.nuget\packages\bcrypt.net-next\4.1.0\lib\netstandard2.1\BCrypt.Net-Next.dll
+C:\Users\awsedrggft\.nuget\packages\communitytoolkit.mvvm\8.2.2\lib\net6.0\CommunityToolkit.Mvvm.dll
 C:\Users\awsedrggft\.nuget\packages\harfbuzzsharp\8.3.1.1\lib\net8.0\HarfBuzzSharp.dll
 C:\Users\awsedrggft\.nuget\packages\microcom.runtime\0.11.0\lib\net5.0\MicroCom.Runtime.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\Microsoft.CSharp.dll
@@ -31,10 +32,30 @@ C:\Users\awsedrggft\.nuget\packages\microsoft.entityframeworkcore.relational\8.0
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.caching.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.caching.memory\8.0.0\lib\net8.0\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.binder\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.commandline\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.CommandLine.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.environmentvariables\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.fileextensions\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.json\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.configuration.usersecrets\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.UserSecrets.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.dependencyinjection\8.0.0\lib\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.diagnostics.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.diagnostics\8.0.0\lib\net8.0\Microsoft.Extensions.Diagnostics.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.fileproviders.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.fileproviders.physical\8.0.0\lib\net8.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.filesystemglobbing\8.0.0\lib\net8.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.hosting.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.hosting\8.0.0\lib\net8.0\Microsoft.Extensions.Hosting.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging.abstractions\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging.configuration\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.Configuration.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging.console\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.Console.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging.debug\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.Debug.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging.eventlog\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.EventLog.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.logging.eventsource\8.0.0\lib\net8.0\Microsoft.Extensions.Logging.EventSource.dll
+C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.options.configurationextensions\8.0.0\lib\net8.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.options\8.0.0\lib\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.extensions.primitives\8.0.0\lib\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\awsedrggft\.nuget\packages\microsoft.io.recyclablememorystream\3.0.1\lib\net6.0\Microsoft.IO.RecyclableMemoryStream.dll
@@ -69,6 +90,7 @@ C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System.Diagnostics.Contracts.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System.Diagnostics.Debug.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\awsedrggft\.nuget\packages\system.diagnostics.eventlog\8.0.0\lib\net8.0\System.Diagnostics.EventLog.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System.Diagnostics.FileVersionInfo.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System.Diagnostics.Process.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.27\ref\net8.0\System.Diagnostics.StackTrace.dll

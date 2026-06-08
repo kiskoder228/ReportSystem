@@ -1,42 +1,33 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using ReportSystem.Data;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ReportSystem.Data.Repositories;
 using ReportSystem.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace ReportSystem.ViewModels;
 
-public class AdminUsersViewModel : ViewModelBase
+public partial class AdminUsersViewModel : ObservableObject
 {
+    private readonly IUserRepository _userRepository;
+
+    [ObservableProperty]
     private User? _selectedUser;
+
+    [ObservableProperty]
     private string _searchText = "";
+
+    partial void OnSearchTextChanged(string value)
+    {
+        LoadUsers();
+    }
 
     public ObservableCollection<User> Users { get; } = new();
     public ObservableCollection<string> Roles { get; } = new() { "Student", "Teacher", "Admin" };
 
-    public User? SelectedUser
+    public AdminUsersViewModel(IUserRepository userRepository, User currentAdmin)
     {
-        get => _selectedUser;
-        set => SetProperty(ref _selectedUser, value);
-    }
-
-    public string SearchText
-    {
-        get => _searchText;
-        set
-        {
-            if (SetProperty(ref _searchText, value))
-                LoadUsers();
-        }
-    }
-
-    public ICommand ChangeRoleCommand { get; }
-
-    public AdminUsersViewModel(User currentAdmin)
-    {
-        ChangeRoleCommand = new RelayCommand<string>(ChangeRole);
+        _userRepository = userRepository;
         LoadUsers();
     }
 
@@ -45,41 +36,23 @@ public class AdminUsersViewModel : ViewModelBase
         Users.Clear();
         try
         {
-            using var db = new ApplicationDbContext();
-
-            var query = db.Users.Include(u => u.Role).AsEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(SearchText))
-                query = query.Where(u =>
-                    (u.FullName != null && u.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (u.Login != null && u.Login.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
-
+            var query = _userRepository.GetAllUsers(SearchText);
             foreach (var user in query)
                 Users.Add(user);
         }
-        catch (Exception) { }
+        catch { }
     }
 
+    [RelayCommand]
     private void ChangeRole(string? newRole)
     {
         if (SelectedUser == null || string.IsNullOrEmpty(newRole)) return;
 
         try
         {
-            using var db = new ApplicationDbContext();
-
-            var role = db.Roles.FirstOrDefault(r => r.Name == newRole);
-            if (role == null) return;
-
-            var user = db.Users.FirstOrDefault(u => u.Id == SelectedUser.Id);
-            if (user == null) return;
-
-            user.RoleId = role.Id;
-            db.SaveChanges();
-
-            SelectedUser.Role = role;
+            _userRepository.UpdateRole(SelectedUser.Id, newRole);
             LoadUsers();
         }
-        catch (Exception) { }
+        catch { }
     }
 }

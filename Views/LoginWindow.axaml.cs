@@ -1,4 +1,6 @@
+using System;
 using Avalonia.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using ReportSystem.Models;
 using ReportSystem.ViewModels;
 
@@ -6,29 +8,40 @@ namespace ReportSystem.Views;
 
 public partial class LoginWindow : Window
 {
+    private readonly IServiceProvider? _serviceProvider;
+
     public LoginWindow()
     {
         InitializeComponent();
-        var vm = new LoginViewModel();
+    }
+
+    public LoginWindow(IServiceProvider serviceProvider, LoginViewModel vm)
+    {
+        _serviceProvider = serviceProvider;
+        InitializeComponent();
         DataContext = vm;
 
         vm.LoginSucceeded += OnLoginSucceeded;
+    }
 
-        var registerBtn = this.FindControl<Button>("OpenRegisterBtn");
-        if (registerBtn != null)
-            registerBtn.Click += (_, _) =>
-            {
-                var regWindow = new RegisterWindow();
-                regWindow.Show();
-                this.Hide();
-                regWindow.Closed += (_, _) => this.Show();
-            };
+    private void OnRegisterClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (_serviceProvider != null)
+        {
+            var regWindow = _serviceProvider.GetRequiredService<RegisterWindow>();
+            regWindow.Show();
+            this.Hide();
+            regWindow.Closed += (_, _) => this.Show();
+        }
     }
 
     private void OnLoginSucceeded(User user)
     {
-        var mainWindow = new MainWindow(user);
-        mainWindow.Show();
-        this.Close();
+        if (_serviceProvider != null)
+        {
+            var mainWindow = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<MainWindow>(_serviceProvider, user);
+            mainWindow.Show();
+            this.Close();
+        }
     }
 }

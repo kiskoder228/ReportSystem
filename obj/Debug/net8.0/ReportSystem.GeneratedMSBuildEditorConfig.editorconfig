@@ -27,16 +27,16 @@ build_property.EnableCodeStyleSeverity =
 [C:/Projects/ReportsSystem/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Projects/ReportsSystem/Views/AdminReportsPage.axaml]
+[C:/Projects/ReportsSystem/Views/AdminReportsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Projects/ReportsSystem/Views/AdminUsersPage.axaml]
+[C:/Projects/ReportsSystem/Views/AdminUsersView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Projects/ReportsSystem/Views/CreateReportPage.axaml]
+[C:/Projects/ReportsSystem/Views/CreateReportView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Projects/ReportsSystem/Views/DashboardPage.axaml]
+[C:/Projects/ReportsSystem/Views/DashboardView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Projects/ReportsSystem/Views/LoginWindow.axaml]
@@ -45,7 +45,7 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Projects/ReportsSystem/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Projects/ReportsSystem/Views/MyReportsPage.axaml]
+[C:/Projects/ReportsSystem/Views/MyReportsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Projects/ReportsSystem/Views/RegisterWindow.axaml]

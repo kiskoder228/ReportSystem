@@ -1,17 +1,19 @@
 using System.Collections.ObjectModel;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using ReportSystem.Data;
+using CommunityToolkit.Mvvm.ComponentModel;
+using ReportSystem.Data.Repositories;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-public class MyReportsViewModel : ViewModelBase
+public partial class MyReportsViewModel : ObservableObject
 {
+    private readonly IReportRepository _reportRepository;
+
     public ObservableCollection<Report> Reports { get; } = new();
 
-    public MyReportsViewModel(User user)
+    public MyReportsViewModel(IReportRepository reportRepository, User user)
     {
+        _reportRepository = reportRepository;
         LoadReports(user);
     }
 
@@ -19,17 +21,10 @@ public class MyReportsViewModel : ViewModelBase
     {
         try
         {
-            using var db = new ApplicationDbContext();
-
-            var list = db.Reports
-                .Include(r => r.Category)
-                .Include(r => r.Status)
-                .Where(r => r.AuthorId == user.Id)
-                .ToList();
-
+            var list = _reportRepository.GetReportsByAuthor(user.Id);
             foreach (var report in list)
                 Reports.Add(report);
         }
-        catch (System.Exception) { }
+        catch { }
     }
 }

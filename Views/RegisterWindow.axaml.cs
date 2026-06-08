@@ -8,10 +8,16 @@ public partial class RegisterWindow : Window
     public RegisterWindow()
     {
         InitializeComponent();
-        DataContext = new RegisterViewModel();
+    }
 
-        var backBtn = this.FindControl<Button>("BackToLoginBtn");
-        if (backBtn != null)
-            backBtn.Click += (_, _) => this.Close();
+    public RegisterWindow(RegisterViewModel vm)
+    {
+        InitializeComponent();
+        DataContext = vm;
+    }
+
+    private void OnBackClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        this.Close();
     }
 }

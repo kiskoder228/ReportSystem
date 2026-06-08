@@ -1,68 +1,47 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
-using ReportSystem.Data;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ReportSystem.Data.Repositories;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-public class CreateReportViewModel : ViewModelBase
+public partial class CreateReportViewModel : ObservableObject
 {
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly IReportRepository _reportRepository;
     private readonly User _currentUser;
+
+    [ObservableProperty]
     private Category? _selectedCategory;
+
+    [ObservableProperty]
     private string _description = "";
+
+    [ObservableProperty]
     private bool _isAnonymous;
+
+    [ObservableProperty]
     private string _statusMessage = "";
+
+    [ObservableProperty]
     private bool _hasMessage;
+
+    [ObservableProperty]
     private bool _isSuccess;
 
     public ObservableCollection<Category> Categories { get; } = new();
 
-    public Category? SelectedCategory
+    public CreateReportViewModel(
+        ICategoryRepository categoryRepository,
+        IReportRepository reportRepository,
+        User user)
     {
-        get => _selectedCategory;
-        set => SetProperty(ref _selectedCategory, value);
-    }
-
-    public string Description
-    {
-        get => _description;
-        set => SetProperty(ref _description, value);
-    }
-
-    public bool IsAnonymous
-    {
-        get => _isAnonymous;
-        set => SetProperty(ref _isAnonymous, value);
-    }
-
-    public string StatusMessage
-    {
-        get => _statusMessage;
-        set => SetProperty(ref _statusMessage, value);
-    }
-
-    public bool HasMessage
-    {
-        get => _hasMessage;
-        set => SetProperty(ref _hasMessage, value);
-    }
-
-    public bool IsSuccess
-    {
-        get => _isSuccess;
-        set => SetProperty(ref _isSuccess, value);
-    }
-
-    public ICommand SubmitCommand { get; }
-    public ICommand ClearCommand { get; }
-
-    public CreateReportViewModel(User user)
-    {
+        _categoryRepository = categoryRepository;
+        _reportRepository = reportRepository;
         _currentUser = user;
-        SubmitCommand = new RelayCommand(SubmitReport);
-        ClearCommand = new RelayCommand(Clear);
         LoadCategories();
     }
 
@@ -70,8 +49,7 @@ public class CreateReportViewModel : ViewModelBase
     {
         try
         {
-            using var db = new ApplicationDbContext();
-            foreach (var cat in db.Categories.ToList())
+            foreach (var cat in _categoryRepository.GetAll())
                 Categories.Add(cat);
 
             SelectedCategory = Categories.FirstOrDefault();
@@ -86,7 +64,8 @@ public class CreateReportViewModel : ViewModelBase
         HasMessage = true;
     }
 
-    private void SubmitReport()
+    [RelayCommand]
+    private void Submit()
     {
         if (SelectedCategory == null || string.IsNullOrWhiteSpace(Description))
         {
@@ -96,22 +75,16 @@ public class CreateReportViewModel : ViewModelBase
 
         try
         {
-            using var db = new ApplicationDbContext();
-
-            var statusNew = db.ReportStatuses.FirstOrDefault(s => s.Name == "New");
-
             var report = new Report
             {
                 AuthorId = _currentUser.Id,
                 CategoryId = SelectedCategory.Id,
                 Description = Description,
                 IsAnonymous = IsAnonymous,
-                Status = statusNew,
                 CreatedAt = DateTime.UtcNow
             };
 
-            db.Reports.Add(report);
-            db.SaveChanges();
+            _reportRepository.AddReport(report);
 
             ShowMessage(true, "✅ Обращение успешно отправлено!");
             Clear();
@@ -122,6 +95,7 @@ public class CreateReportViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
     private void Clear()
     {
         Description = "";

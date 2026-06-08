@@ -1,44 +1,22 @@
 using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ObservableObject
 {
+    [ObservableProperty]
     private string _userName = "";
+
+    [ObservableProperty]
     private string _userRole = "";
+
+    [ObservableProperty]
     private object? _currentPage;
-    private int _selectedMenuIndex = 0;
 
     public User CurrentUser { get; set; }
-
-    public string UserName
-    {
-        get => _userName;
-        set => SetProperty(ref _userName, value);
-    }
-
-    public string UserRole
-    {
-        get => _userRole;
-        set => SetProperty(ref _userRole, value);
-    }
-
-    public object? CurrentPage
-    {
-        get => _currentPage;
-        set => SetProperty(ref _currentPage, value);
-    }
-
-    public int SelectedMenuIndex
-    {
-        get => _selectedMenuIndex;
-        set
-        {
-            SetProperty(ref _selectedMenuIndex, value);
-            NavigateTo(value);
-        }
-    }
 
     public bool IsAdmin => CurrentUser.Role?.Name == "Admin";
     public bool IsStudent => CurrentUser.Role?.Name == "Student";
@@ -51,14 +29,17 @@ public class MainWindowViewModel : ViewModelBase
         { "Student", "Ученик" }
     };
 
-    public MainWindowViewModel(User user)
+    private readonly System.IServiceProvider _serviceProvider;
+
+    public MainWindowViewModel(System.IServiceProvider serviceProvider, User user)
     {
+        _serviceProvider = serviceProvider;
         CurrentUser = user;
         UserName = user.FullName;
 
-        if (user.Role != null && RoleLabels.ContainsKey(user.Role.Name))
+        if (user.Role != null && RoleLabels.TryGetValue(user.Role.Name, out var label))
         {
-            UserRole = RoleLabels[user.Role.Name];
+            UserRole = label;
         }
         else if (user.Role != null)
         {
@@ -69,27 +50,31 @@ public class MainWindowViewModel : ViewModelBase
             UserRole = "Unknown";
         }
 
-        NavigateTo(1);
+        Navigate("Dashboard");
     }
 
-    private void NavigateTo(int index)
+    [RelayCommand]
+    public void Navigate(string destination)
     {
-        if (IsAdmin)
+        if (destination == "Dashboard")
         {
-            if (index == 0) CurrentPage = new DashboardPageViewModel(CurrentUser);
-            else if (index == 1) CurrentPage = new AdminReportsViewModel(CurrentUser);
-            else if (index == 2) CurrentPage = new AdminUsersViewModel(CurrentUser);
+            CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<DashboardViewModel>(_serviceProvider, CurrentUser);
         }
-        else if (IsTeacher)
+        else if (destination == "CreateReport" && IsStudent)
         {
-            if (index == 0) CurrentPage = new DashboardPageViewModel(CurrentUser);
-            else if (index == 1) CurrentPage = new AdminReportsViewModel(CurrentUser);
+            CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<CreateReportViewModel>(_serviceProvider, CurrentUser);
         }
-        else if (IsStudent)
+        else if (destination == "MyReports" && IsStudent)
         {
-            if (index == 0) CurrentPage = new DashboardPageViewModel(CurrentUser);
-            else if (index == 1) CurrentPage = new CreateReportViewModel(CurrentUser);
-            else if (index == 2) CurrentPage = new MyReportsViewModel(CurrentUser);
+            CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<MyReportsViewModel>(_serviceProvider, CurrentUser);
+        }
+        else if (destination == "AllReports" && (IsAdmin || IsTeacher))
+        {
+            CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<AdminReportsViewModel>(_serviceProvider, CurrentUser);
+        }
+        else if (destination == "Users" && IsAdmin)
+        {
+            CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<AdminUsersViewModel>(_serviceProvider, CurrentUser);
         }
     }
 }

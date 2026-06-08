@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReportSystem.ViewModels"
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             xmlns:m="using:ReportSystem.Models"
+             x:Class="ReportSystem.Views.MyReportsView"
+             x:DataType="vm:MyReportsViewModel">
+
+    <StackPanel Spacing="15" Margin="10">
+        <TextBlock Text="Список моих обращений" FontSize="20" FontWeight="Bold"/>
+        <Separator/>
+
+        <dg:DataGrid ItemsSource="{Binding Reports}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  GridLinesVisibility="All"
+                  BorderBrush="Gray"
+                  BorderThickness="1"
+                  Height="350">
+            <dg:DataGrid.Columns>
+                <dg:DataGridTextColumn Header="ID" Binding="{Binding Id}" x:DataType="m:Report" Width="50"/>
+                <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name}" x:DataType="m:Report" Width="150"/>
+                <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description}" x:DataType="m:Report" Width="*"/>
+                <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" x:DataType="m:Report" Width="100"/>
+                <dg:DataGridTextColumn Header="Дата создания" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy}" x:DataType="m:Report" Width="120"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+        
+        <TextBlock Text="У вас пока нет отправленных обращений." 
+                   IsVisible="{Binding !Reports.Count}" 
+                   Foreground="Red" 
+                   FontStyle="Italic"/>
+    </StackPanel>
+</UserControl>
