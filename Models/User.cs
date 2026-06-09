@@ -11,7 +11,6 @@ public class User
     public string PasswordHash { get; set; } = null!;
     public int RoleId { get; set; }
     public Role? Role { get; set; }
-    public string? Email { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public List<Report> Reports { get; set; } = new();
     public List<Report> ReviewedReports { get; set; } = new();
