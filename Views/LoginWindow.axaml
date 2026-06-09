@@ -20,10 +20,6 @@
             <TextBlock Text="Пароль" />
             <TextBox Text="{Binding Password}" PasswordChar="*"/>
 
-            <CheckBox IsChecked="{Binding RememberMe}">
-                <TextBlock Text="Запомнить меня"/>
-            </CheckBox>
-
             <Border Background="White" Padding="20" IsVisible="{Binding HasMessage}">
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"/>
             </Border>

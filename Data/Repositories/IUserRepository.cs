@@ -10,4 +10,5 @@ public interface IUserRepository
     IEnumerable<User> GetAllUsers(string? searchText);
     void UpdateRole(int userId, string roleName);
     bool UserExists(string login);
+    void DeleteUser(int userId);
 }

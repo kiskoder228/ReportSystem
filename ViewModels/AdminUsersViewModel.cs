@@ -55,4 +55,17 @@ public partial class AdminUsersViewModel : ObservableObject
         }
         catch { }
     }
+
+    [RelayCommand]
+    private void DeleteUser()
+    {
+        if (SelectedUser == null) return;
+
+        try
+        {
+            _userRepository.DeleteUser(SelectedUser.Id);
+            LoadUsers();
+        }
+        catch { }
+    }
 }

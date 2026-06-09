@@ -9,34 +9,7 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme />
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <SimpleTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml"/>
     </Application.Styles>
-
-    <Application.Resources>
-        <ResourceDictionary>
-            <Color x:Key="MainBlue">#1976D2</Color>
-            <SolidColorBrush x:Key="MainBlueBrush" Color="#1976D2"/>
-
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <Color x:Key="SystemAccentColor">#1976D2</Color>
-                    <Color x:Key="SystemAccentColorLight1">#42A5F5</Color>
-                    <Color x:Key="SystemAccentColorLight2">#90CAF9</Color>
-                    <Color x:Key="SystemAccentColorLight3">#BBDEFB</Color>
-                    <Color x:Key="SystemAccentColorDark1">#1565C0</Color>
-                    <Color x:Key="SystemAccentColorDark2">#0D47A1</Color>
-                    <Color x:Key="SystemAccentColorDark3">#0A3070</Color>
-                    
-                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="#1976D2"/>
-                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="#1976D2" Opacity="0.1"/>
-                    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="#1976D2" Opacity="0.2"/>
-                    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush" Color="#1976D2" Opacity="0.3"/>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-
-            <SolidColorBrush x:Key="ButtonDefaultBackground">#F8F9FA</SolidColorBrush>
-            <SolidColorBrush x:Key="ButtonDefaultForeground">#1A1F2E</SolidColorBrush>
-        </ResourceDictionary>
-    </Application.Resources>
 </Application>

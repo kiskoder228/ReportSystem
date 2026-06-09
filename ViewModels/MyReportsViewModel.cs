@@ -11,6 +11,8 @@ public partial class MyReportsViewModel : ObservableObject
 
     public ObservableCollection<Report> Reports { get; } = new();
 
+    public bool HasNoReports => Reports.Count == 0;
+
     public MyReportsViewModel(IReportRepository reportRepository, User user)
     {
         _reportRepository = reportRepository;

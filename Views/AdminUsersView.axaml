@@ -26,10 +26,10 @@
                   BorderThickness="1"
                   Height="280">
             <dg:DataGrid.Columns>
-                <dg:DataGridTextColumn Header="ID" Binding="{Binding Id}" x:DataType="m:User" Width="50"/>
-                <dg:DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" x:DataType="m:User" Width="*"/>
-                <dg:DataGridTextColumn Header="Логин" Binding="{Binding Login}" x:DataType="m:User" Width="150"/>
-                <dg:DataGridTextColumn Header="Роль" Binding="{Binding Role.Name}" x:DataType="m:User" Width="100"/>
+                <dg:DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneWay}" x:DataType="m:User" Width="50"/>
+                <dg:DataGridTextColumn Header="ФИО" Binding="{Binding FullName, Mode=OneWay}" x:DataType="m:User" Width="*"/>
+                <dg:DataGridTextColumn Header="Логин" Binding="{Binding Login, Mode=OneWay}" x:DataType="m:User" Width="150"/>
+                <dg:DataGridTextColumn Header="Роль" Binding="{Binding Role.Name, Mode=OneWay}" x:DataType="m:User" Width="100"/>
             </dg:DataGrid.Columns>
         </dg:DataGrid>
 
@@ -41,6 +41,7 @@
                 <Button Content="Сделать Преподавателем" Command="{Binding ChangeRoleCommand}" CommandParameter="Teacher"/>
                 <Button Content="Сделать Учеником" Command="{Binding ChangeRoleCommand}" CommandParameter="Student"/>
             </StackPanel>
+            <Button Content="Удалить пользователя" Command="{Binding DeleteUserCommand}" Foreground="Red" Margin="0,10,0,0"/>
         </StackPanel>
 
     </StackPanel>

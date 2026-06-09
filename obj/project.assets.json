@@ -249,6 +249,22 @@
           }
         }
       },
+      "Avalonia.Themes.Simple/11.3.4": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.3.4"
+        },
+        "compile": {
+          "lib/net8.0/Avalonia.Themes.Simple.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Themes.Simple.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Avalonia.Win32/11.3.4": {
         "type": "package",
         "dependencies": {
@@ -2310,6 +2326,24 @@
         "lib/net8.0/Avalonia.Themes.Fluent.xml",
         "lib/netstandard2.0/Avalonia.Themes.Fluent.dll",
         "lib/netstandard2.0/Avalonia.Themes.Fluent.xml"
+      ]
+    },
+    "Avalonia.Themes.Simple/11.3.4": {
+      "sha512": "JIR/uTlyFD1EX2WoxD/8O1fwNbOimKYxzlaK+lZiW1ZG+5fcqEfG12Ve4/a/q54dWAAEISgLRjSgpCEywPqFuw==",
+      "type": "package",
+      "path": "avalonia.themes.simple/11.3.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "avalonia.themes.simple.11.3.4.nupkg.sha512",
+        "avalonia.themes.simple.nuspec",
+        "lib/net6.0/Avalonia.Themes.Simple.dll",
+        "lib/net6.0/Avalonia.Themes.Simple.xml",
+        "lib/net8.0/Avalonia.Themes.Simple.dll",
+        "lib/net8.0/Avalonia.Themes.Simple.xml",
+        "lib/netstandard2.0/Avalonia.Themes.Simple.dll",
+        "lib/netstandard2.0/Avalonia.Themes.Simple.xml"
       ]
     },
     "Avalonia.Win32/11.3.4": {
@@ -4919,6 +4953,7 @@
       "Avalonia.Desktop >= 11.3.4",
       "Avalonia.Fonts.Inter >= 11.3.4",
       "Avalonia.Themes.Fluent >= 11.3.4",
+      "Avalonia.Themes.Simple >= 11.3.4",
       "AvaloniaUI.DiagnosticsSupport >= 2.2.1",
       "BCrypt.Net-Next >= 4.1.0",
       "CommunityToolkit.Mvvm >= 8.2.2",
@@ -4997,6 +5032,10 @@
             "version": "[11.3.4, )"
           },
           "Avalonia.Themes.Fluent": {
+            "target": "Package",
+            "version": "[11.3.4, )"
+          },
+          "Avalonia.Themes.Simple": {
             "target": "Package",
             "version": "[11.3.4, )"
           },

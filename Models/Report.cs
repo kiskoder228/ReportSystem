@@ -24,9 +24,8 @@ public class Report
     public int? ReviewedById { get; set; }
     public User? ReviewedBy { get; set; }
 
-    public DateTime? ResolvedAt { get; set; }
-
     public string? ModeratorComment { get; set; }
 
-    public List<Evidence> Evidences { get; set; } = new();
+    public DateTime? ResolvedAt { get; set; }
+
 }

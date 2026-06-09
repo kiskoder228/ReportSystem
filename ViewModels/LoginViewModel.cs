@@ -15,8 +15,6 @@ public partial class LoginViewModel : ObservableObject
     [ObservableProperty]
     private string _password = string.Empty;
 
-    [ObservableProperty]
-    private bool _rememberMe;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasMessage))]

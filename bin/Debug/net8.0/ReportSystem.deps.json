@@ -13,6 +13,7 @@
           "Avalonia.Desktop": "11.3.4",
           "Avalonia.Fonts.Inter": "11.3.4",
           "Avalonia.Themes.Fluent": "11.3.4",
+          "Avalonia.Themes.Simple": "11.3.4",
           "AvaloniaUI.DiagnosticsSupport": "2.2.1",
           "BCrypt.Net-Next": "4.1.0",
           "CommunityToolkit.Mvvm": "8.2.2",
@@ -192,6 +193,17 @@
         },
         "runtime": {
           "lib/net8.0/Avalonia.Themes.Fluent.dll": {
+            "assemblyVersion": "11.3.4.0",
+            "fileVersion": "11.3.4.0"
+          }
+        }
+      },
+      "Avalonia.Themes.Simple/11.3.4": {
+        "dependencies": {
+          "Avalonia": "11.3.4"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Themes.Simple.dll": {
             "assemblyVersion": "11.3.4.0",
             "fileVersion": "11.3.4.0"
           }
@@ -1340,6 +1352,13 @@
       "sha512": "sha512-3HPGIWSYrYFIdgpOp4UzZd7ahCKjpDsakPo4g/TAlTWpQmwUmA6vQe7udEjwRHHvKjbzVrdg2bal6bizI87sMg==",
       "path": "avalonia.themes.fluent/11.3.4",
       "hashPath": "avalonia.themes.fluent.11.3.4.nupkg.sha512"
+    },
+    "Avalonia.Themes.Simple/11.3.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JIR/uTlyFD1EX2WoxD/8O1fwNbOimKYxzlaK+lZiW1ZG+5fcqEfG12Ve4/a/q54dWAAEISgLRjSgpCEywPqFuw==",
+      "path": "avalonia.themes.simple/11.3.4",
+      "hashPath": "avalonia.themes.simple.11.3.4.nupkg.sha512"
     },
     "Avalonia.Win32/11.3.4": {
       "type": "package",

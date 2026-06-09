@@ -79,4 +79,15 @@ public class UserRepository : IUserRepository
         using var db = _dbFactory.CreateDbContext();
         return db.Users.Any(u => u.Login == login);
     }
+
+    public void DeleteUser(int userId)
+    {
+        using var db = _dbFactory.CreateDbContext();
+        var user = db.Users.FirstOrDefault(u => u.Id == userId);
+        if (user != null)
+        {
+            db.Users.Remove(user);
+            db.SaveChanges();
+        }
+    }
 }

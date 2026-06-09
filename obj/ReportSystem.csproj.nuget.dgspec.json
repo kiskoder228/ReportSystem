@@ -73,6 +73,10 @@
               "target": "Package",
               "version": "[11.3.4, )"
             },
+            "Avalonia.Themes.Simple": {
+              "target": "Package",
+              "version": "[11.3.4, )"
+            },
             "AvaloniaUI.DiagnosticsSupport": {
               "target": "Package",
               "version": "[2.2.1, )"

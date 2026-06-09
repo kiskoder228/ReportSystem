@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FspuT3vX5aE=",
+  "dgSpecHash": "6RXhLPJIOIM=",
   "success": true,
   "projectFilePath": "C:\\Projects\\ReportsSystem\\ReportSystem.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.remote.protocol\\11.3.4\\avalonia.remote.protocol.11.3.4.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.skia\\11.3.4\\avalonia.skia.11.3.4.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.themes.fluent\\11.3.4\\avalonia.themes.fluent.11.3.4.nupkg.sha512",
+    "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.themes.simple\\11.3.4\\avalonia.themes.simple.11.3.4.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.win32\\11.3.4\\avalonia.win32.11.3.4.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avalonia.x11\\11.3.4\\avalonia.x11.11.3.4.nupkg.sha512",
     "C:\\Users\\awsedrggft\\.nuget\\packages\\avaloniaui.diagnosticssupport\\2.2.1\\avaloniaui.diagnosticssupport.2.2.1.nupkg.sha512",
