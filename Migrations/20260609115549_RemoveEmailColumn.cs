@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,16 +10,7 @@ namespace ReportSystem.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Users");
-
-            migrationBuilder.UpdateData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "PasswordHash",
-                value: "$2a$11$WQ83lKL4NLmBlEaQ1FF0ROcYauHTKvudcA2ROqZv5Q3zvlXQYeRyO");
+            // Suppress because column was manually deleted
         }
 
         /// <inheritdoc />

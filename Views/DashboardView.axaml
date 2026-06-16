@@ -5,64 +5,85 @@
              x:DataType="vm:DashboardViewModel">
 
     <ScrollViewer>
-        <StackPanel Spacing="20" Margin="10">
+        <StackPanel Spacing="30" Margin="10">
             
             <!-- Header -->
-            <StackPanel Spacing="5">
-                <TextBlock FontSize="24" FontWeight="Bold">
-                    <Run Text="Панель информации. Здравствуйте, "/>
+            <StackPanel Spacing="8">
+                <TextBlock FontSize="28" FontWeight="Bold" Foreground="#1e293b">
+                    <Run Text="Добро пожаловать, "/>
                     <Run Text="{Binding GreetingName}"/>
                 </TextBlock>
-                <TextBlock Text="Текущая статистика обращений по нарушениям дисциплины" Foreground="Gray"/>
-                <Separator/>
+                <TextBlock Text="Текущая статистика и панель управления" Foreground="#64748b" FontSize="15"/>
             </StackPanel>
 
             <!-- Statistics Grid -->
             <UniformGrid Columns="4" Rows="1">
                 
                 <!-- Total -->
-                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#F9F9F9">
-                    <StackPanel Spacing="5" HorizontalAlignment="Center">
-                        <TextBlock Text="Всего заявок" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding TotalReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Border BorderBrush="#e2e8f0" BorderThickness="1" Margin="5" Padding="20" Background="White" CornerRadius="12">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <TextBlock Text="Всего заявок" FontSize="14" Foreground="#64748b" HorizontalAlignment="Center" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding TotalReports}" FontSize="32" FontWeight="Bold" Foreground="#1e293b" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
 
                 <!-- New -->
-                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#FFF9C4">
-                    <StackPanel Spacing="5" HorizontalAlignment="Center">
-                        <TextBlock Text="Новые" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding NewReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Border BorderBrush="#e2e8f0" BorderThickness="1" Margin="5" Padding="20" Background="White" CornerRadius="12">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <TextBlock Text="Новые" FontSize="14" Foreground="#64748b" HorizontalAlignment="Center" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding NewReports}" FontSize="32" FontWeight="Bold" Foreground="#eab308" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
 
                 <!-- In Progress -->
-                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#E1BEE7">
-                    <StackPanel Spacing="5" HorizontalAlignment="Center">
-                        <TextBlock Text="В работе" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding InProgressReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Border BorderBrush="#e2e8f0" BorderThickness="1" Margin="5" Padding="20" Background="White" CornerRadius="12">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <TextBlock Text="В работе" FontSize="14" Foreground="#64748b" HorizontalAlignment="Center" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding InProgressReports}" FontSize="32" FontWeight="Bold" Foreground="#3b82f6" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
 
                 <!-- Resolved -->
-                <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10" Background="#C8E6C9">
-                    <StackPanel Spacing="5" HorizontalAlignment="Center">
-                        <TextBlock Text="Решенные" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{Binding ResolvedReports}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Border BorderBrush="#e2e8f0" BorderThickness="1" Margin="5" Padding="20" Background="White" CornerRadius="12">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <TextBlock Text="Решенные" FontSize="14" Foreground="#64748b" HorizontalAlignment="Center" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding ResolvedReports}" FontSize="32" FontWeight="Bold" Foreground="#22c55e" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
             </UniformGrid>
 
-            <!-- Help Guide -->
-            <Border BorderBrush="Gray" BorderThickness="1" Padding="15" Margin="5">
-                <StackPanel Spacing="10">
-                    <TextBlock Text="Инструкция для пользователя" FontSize="16" FontWeight="Bold"/>
-                    <TextBlock Text="1. Для подачи новой жалобы перейдите в меню 'Создать жалобу'."/>
-                    <TextBlock Text="2. Заполните описание нарушения, выберите подходящую категорию."/>
-                    <TextBlock Text="3. При необходимости поставьте галочку 'Анонимно' (ваше имя не будет видно)."/>
-                    <TextBlock Text="4. Отправьте форму. Администрация рассмотрит жалобу в рабочее время."/>
-                </StackPanel>
-            </Border>
+            <!-- Help Guide & Leaderboard -->
+            <UniformGrid Columns="2" Rows="1">
+                <Border BorderBrush="#e2e8f0" BorderThickness="1" Padding="25" Margin="5" Background="White" CornerRadius="12">
+                    <StackPanel Spacing="15">
+                        <TextBlock Text="Инструкция для пользователя" FontSize="18" FontWeight="SemiBold" Foreground="#1e293b" Margin="0,0,0,5"/>
+                        <TextBlock Text="1. Для подачи новой жалобы перейдите в меню 'Создать жалобу'." TextWrapping="Wrap" Foreground="#475569" FontSize="14"/>
+                        <TextBlock Text="2. Заполните описание нарушения, выберите нарушителя и категорию." TextWrapping="Wrap" Foreground="#475569" FontSize="14"/>
+                        <TextBlock Text="3. При необходимости поставьте галочку 'Анонимно'." TextWrapping="Wrap" Foreground="#475569" FontSize="14"/>
+                        <TextBlock Text="4. Отправьте форму. Заявка будет рассмотрена в порядке очереди." TextWrapping="Wrap" Foreground="#475569" FontSize="14"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="#e2e8f0" BorderThickness="1" Padding="25" Margin="5" Background="White" CornerRadius="12">
+                    <StackPanel Spacing="15">
+                        <TextBlock Text="🏆 Топ 5 пользователей" FontSize="18" FontWeight="SemiBold" Foreground="#1e293b" Margin="0,0,0,5"/>
+                        <ItemsControl ItemsSource="{Binding TopInformants}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#f1f5f9" BorderThickness="0,0,0,1" Padding="10,8">
+                                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                                            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding FullName}" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,10,0" FontSize="15"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Rank, StringFormat='Ранг: {0}'}" Foreground="#64748b" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Score, StringFormat='Очки: {0}'}" FontWeight="Bold" Foreground="#3b82f6" FontSize="15"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Address, StringFormat='Место прописки: {0}'}" FontSize="12" Foreground="#94a3b8" Margin="0,2,0,0" IsVisible="{Binding Address, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
 
         </StackPanel>
     </ScrollViewer>

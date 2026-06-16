@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ReportSystem.Data.Repositories;
@@ -10,6 +11,10 @@ namespace ReportSystem.ViewModels;
 public partial class AdminReportsViewModel : ObservableObject
 {
     private readonly IReportRepository _reportRepository;
+    private readonly User _currentUser;
+
+    [ObservableProperty]
+    private string _statusMessage = "";
 
     [ObservableProperty]
     private Report? _selectedReport;
@@ -34,12 +39,13 @@ public partial class AdminReportsViewModel : ObservableObject
 
     public ObservableCollection<string> StatusFilters { get; } = new()
     {
-        "Все", "New", "InProgress", "Resolved", "Rejected"
+        "Все", "Ожидает приговора", "В разработке", "Виновен (Принято)", "Оправдан (Отклонено)"
     };
 
     public AdminReportsViewModel(IReportRepository reportRepository, User user)
     {
         _reportRepository = reportRepository;
+        _currentUser = user;
         LoadReports();
     }
 
@@ -62,11 +68,40 @@ public partial class AdminReportsViewModel : ObservableObject
     {
         if (SelectedReport == null || statusStr == null) return;
 
+        if (_currentUser.Role?.Name == "Teacher" && SelectedReport.ViolatorId == _currentUser.Id)
+        {
+            StatusMessage = "Учитель не может изменять статус жалобы на самого себя!";
+            return;
+        }
+
         try
         {
             _reportRepository.UpdateStatus(SelectedReport.Id, statusStr);
+            StatusMessage = $"Статус жалобы #{SelectedReport.Id} изменен на '{statusStr}'";
             LoadReports();
         }
-        catch { }
+        catch (Exception ex)
+        {
+            StatusMessage = "Ошибка: " + ex.Message;
+        }
+    }
+
+    [RelayCommand]
+    private void ExportToFile()
+    {
+        try
+        {
+            var lines = Reports.Select(r => 
+                $"ID: {r.Id} | От: {(r.IsAnonymous ? "Аноним" : r.Author?.FullName)} | " +
+                $"На: {r.Violator?.FullName} | Достоверность: {r.ReliabilityScore}% | " +
+                $"Описание: {r.Description} | Статус: {r.Status?.Name}");
+                
+            System.IO.File.WriteAllLines("export_reports.txt", lines);
+            StatusMessage = "Успешно экспортировано в export_reports.txt!";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = "Ошибка экспорта: " + ex.Message;
+        }
     }
 }

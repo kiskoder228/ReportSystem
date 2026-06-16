@@ -4,35 +4,50 @@
              x:Class="ReportSystem.Views.CreateReportView"
              x:DataType="vm:CreateReportViewModel">
 
-    <StackPanel Spacing="15" Margin="10" MaxWidth="500" HorizontalAlignment="Left">
-        <TextBlock Text="Форма создания жалобы" FontSize="20" FontWeight="Bold"/>
-        <Separator/>
+    <Border Background="White" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="12" Margin="10" Padding="30" MaxWidth="600" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel Spacing="20">
+            <TextBlock Text="Новая жалоба" FontSize="24" FontWeight="SemiBold" Foreground="#1e293b"/>
+            <Separator Background="#e2e8f0" Margin="0,0,0,10"/>
 
-        <StackPanel Spacing="5">
-            <TextBlock Text="Выберите категорию нарушения:"/>
-            <ComboBox ItemsSource="{Binding Categories}"
-                      SelectedItem="{Binding SelectedCategory}"
-                      DisplayMemberBinding="{Binding Name}"
-                      HorizontalAlignment="Stretch"/>
+            <StackPanel Spacing="8">
+                <TextBlock Text="Выберите категорию нарушения:" Foreground="#475569" FontWeight="Medium"/>
+                <ComboBox ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedCategory}"
+                          DisplayMemberBinding="{Binding Name}"
+                          HorizontalAlignment="Stretch"
+                          Padding="10"/>
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="На кого жалуемся:" Foreground="#475569" FontWeight="Medium"/>
+                <ComboBox ItemsSource="{Binding AvailableViolators}"
+                          SelectedItem="{Binding SelectedViolator}"
+                          DisplayMemberBinding="{Binding FullName}"
+                          HorizontalAlignment="Stretch"
+                          Padding="10"
+                          PlaceholderText="Выберите пользователя..."/>
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Подробное описание произошедшего:" Foreground="#475569" FontWeight="Medium"/>
+                <TextBox Text="{Binding Description}"
+                         Height="120"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         Padding="10"
+                         FontSize="15"/>
+            </StackPanel>
+
+            <CheckBox IsChecked="{Binding IsAnonymous}" Content="Скрыть мое имя (Анонимно)" Foreground="#475569" FontWeight="Medium"/>
+
+            <Border BorderBrush="{Binding IsSuccess, Converter={x:Static ObjectConverters.IsNull}}" BorderThickness="1" CornerRadius="6" Padding="15" IsVisible="{Binding HasMessage}">
+                <TextBlock Text="{Binding StatusMessage}" Foreground="#0f172a" TextWrapping="Wrap" FontWeight="Medium"/>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,15,0,0">
+                <Button Content="Отправить" Command="{Binding SubmitCommand}" Background="#3b82f6" Foreground="White" FontWeight="SemiBold" FontSize="15" Padding="25,10" CornerRadius="6"/>
+                <Button Content="Очистить" Command="{Binding ClearCommand}" Background="#f1f5f9" Foreground="#64748b" FontWeight="Medium" FontSize="15" Padding="20,10" CornerRadius="6"/>
+            </StackPanel>
         </StackPanel>
-
-        <StackPanel Spacing="5">
-            <TextBlock Text="Подробное описание произошедшего:"/>
-            <TextBox Text="{Binding Description}"
-                     Height="120"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"/>
-        </StackPanel>
-
-        <CheckBox IsChecked="{Binding IsAnonymous}" Content="Отправить анонимно"/>
-
-        <Border BorderBrush="Gray" BorderThickness="1" Padding="10" Background="#F5F5F5" IsVisible="{Binding HasMessage}">
-            <TextBlock Text="{Binding StatusMessage}" Foreground="Blue" TextWrapping="Wrap"/>
-        </Border>
-
-        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
-            <Button Content="Очистить форму" Command="{Binding ClearCommand}"/>
-            <Button Content="Отправить" Command="{Binding SubmitCommand}" FontWeight="Bold"/>
-        </StackPanel>
-    </StackPanel>
+    </Border>
 </UserControl>

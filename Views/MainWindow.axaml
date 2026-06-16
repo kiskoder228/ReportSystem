@@ -4,22 +4,22 @@
         x:Class="ReportSystem.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="Система мониторинга нарушений (Курсовая работа)"
-        Width="950" Height="600"
-        WindowStartupLocation="CenterScreen">
+        Width="1050" Height="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#f4f6f8">
 
     <Grid ColumnDefinitions="200,*">
         
         <!-- Left Panel: Menu -->
-        <Border Grid.Column="0" Padding="10">
+        <Border Grid.Column="0" Background="White" BorderBrush="#e2e8f0" BorderThickness="0,0,1,0" Padding="15">
             <Grid RowDefinitions="Auto,*,Auto">
                 
                 <!-- Profile Info -->
-                <StackPanel Grid.Row="0" Margin="5,10" Spacing="5">
-                    <TextBlock Text="Навигация" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-                    <TextBlock Text="Пользователь:" FontSize="11" Foreground="Gray"/>
-                    <TextBlock Text="{Binding UserName}" FontWeight="Bold" TextWrapping="Wrap"/>
-                    <TextBlock Text="{Binding UserRole}" FontSize="12"/>
-                    <Separator Margin="0,10"/>
+                <StackPanel Grid.Row="0" Margin="0,10,0,20" Spacing="5">
+                    <TextBlock Text="Навигация" FontSize="20" FontWeight="SemiBold" Foreground="#1e293b" Margin="0,0,0,10"/>
+                    <TextBlock Text="ПОЛЬЗОВАТЕЛЬ" FontSize="11" FontWeight="Bold" Foreground="#94a3b8" Margin="0,10,0,0"/>
+                    <TextBlock Text="{Binding UserName}" FontSize="15" FontWeight="Medium" Foreground="#334155" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding UserRole}" FontSize="13" Foreground="#64748b"/>
                 </StackPanel>
 
                 <!-- Navigation Links -->
@@ -45,14 +45,14 @@
                 </ScrollViewer>
 
                 <!-- Logout Button -->
-                <StackPanel Grid.Row="2" Margin="0,10,0,0">
-                    <Button Name="LogoutBtn" Content="Выйти" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="OnLogoutClick"/>
+                <StackPanel Grid.Row="2" Margin="0,20,0,0">
+                    <Button Name="LogoutBtn" Content="Выйти" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="OnLogoutClick" Background="#f1f5f9" Foreground="#64748b" FontWeight="Medium" Padding="10"/>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- Right Panel: Main Content Area -->
-        <Border Grid.Column="1" Padding="15">
+        <Border Grid.Column="1" Padding="30">
             <ContentControl Content="{Binding CurrentPage}"/>
         </Border>
 

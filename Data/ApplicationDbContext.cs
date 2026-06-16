@@ -39,6 +39,11 @@ public class ApplicationDbContext : DbContext
             .WithMany(u => u.ReviewedReports)
             .HasForeignKey(r => r.ReviewedById);
 
+        modelBuilder.Entity<Report>()
+            .HasOne(r => r.Violator)
+            .WithMany(u => u.Violations)
+            .HasForeignKey(r => r.ViolatorId);
+
         modelBuilder.Entity<User>()
             .HasOne(u => u.Role)
             .WithMany()
@@ -56,10 +61,10 @@ public class ApplicationDbContext : DbContext
         );
 
         modelBuilder.Entity<ReportStatus>().HasData(
-            new ReportStatus { Id = 1, Name = "New" },
-            new ReportStatus { Id = 2, Name = "InProgress" },
-            new ReportStatus { Id = 3, Name = "Resolved" },
-            new ReportStatus { Id = 4, Name = "Rejected" }
+            new ReportStatus { Id = 1, Name = "Ожидает приговора" },
+            new ReportStatus { Id = 2, Name = "В разработке" },
+            new ReportStatus { Id = 3, Name = "Виновен (Принято)" },
+            new ReportStatus { Id = 4, Name = "Оправдан (Отклонено)" }
         );
 
         modelBuilder.Entity<Category>().HasData(

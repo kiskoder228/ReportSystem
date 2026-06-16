@@ -6,47 +6,60 @@
              x:Class="ReportSystem.Views.AdminReportsView"
              x:DataType="vm:AdminReportsViewModel">
 
-    <StackPanel Spacing="15" Margin="10">
-        <TextBlock Text="Все жалобы в системе" FontSize="20" FontWeight="Bold"/>
-        <Separator/>
-
-        <!-- Filters -->
-        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,5">
-            <TextBlock Text="Поиск:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding SearchText}" Watermark="Введите текст..." Width="180"/>
-            
-            <TextBlock Text="Фильтр статуса:" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <ComboBox ItemsSource="{Binding StatusFilters}" SelectedItem="{Binding FilterStatus}" Width="130"/>
+    <StackPanel Spacing="20" Margin="10">
+        <StackPanel Spacing="5">
+            <TextBlock Text="Все жалобы в системе" FontSize="24" FontWeight="SemiBold" Foreground="#1e293b"/>
+            <TextBlock Text="Просмотр и управление всеми зарегистрированными жалобами" Foreground="#64748b"/>
         </StackPanel>
 
+        <!-- Filters -->
+        <Border Background="White" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="15">
+            <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                <TextBlock Text="Поиск:" VerticalAlignment="Center" Foreground="#475569" FontWeight="Medium"/>
+                <TextBox Text="{Binding SearchText}" Watermark="Введите текст..." Width="200"/>
+                
+                <TextBlock Text="Статус:" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#475569" FontWeight="Medium"/>
+                <ComboBox ItemsSource="{Binding StatusFilters}" SelectedItem="{Binding FilterStatus}" Width="150"/>
+
+                <Button Content="Экспорт в TXT" Command="{Binding ExportToFileCommand}" Background="#f1f5f9" Foreground="#475569" FontWeight="Medium" Margin="20,0,0,0" Padding="15,8" CornerRadius="6"/>
+            </StackPanel>
+        </Border>
+
+        <TextBlock Text="{Binding StatusMessage}" Foreground="#ef4444" FontWeight="Medium" Margin="0,0,0,5" IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
         <!-- Grid -->
-        <dg:DataGrid ItemsSource="{Binding Reports}"
-                  SelectedItem="{Binding SelectedReport}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  GridLinesVisibility="All"
-                  BorderBrush="Gray"
-                  BorderThickness="1"
-                  Height="300">
+        <Border BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+            <dg:DataGrid ItemsSource="{Binding Reports}"
+                      SelectedItem="{Binding SelectedReport}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="Horizontal"
+                      RowBackground="White"
+                      Height="350">
             <dg:DataGrid.Columns>
                 <dg:DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneWay}" x:DataType="m:Report" Width="50"/>
-                <dg:DataGridTextColumn Header="Автор" Binding="{Binding Author.FullName, Mode=OneWay}" x:DataType="m:Report" Width="140"/>
-                <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" x:DataType="m:Report" Width="120"/>
+                <dg:DataGridTextColumn Header="Автор" Binding="{Binding Author.FullName, Mode=OneWay}" x:DataType="m:Report" Width="120"/>
+                <dg:DataGridTextColumn Header="Нарушитель" Binding="{Binding Violator.FullName, Mode=OneWay}" x:DataType="m:Report" Width="120"/>
+                <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" x:DataType="m:Report" Width="100"/>
+                <dg:DataGridTextColumn Header="Достов. %" Binding="{Binding ReliabilityScore, Mode=OneWay}" x:DataType="m:Report" Width="80"/>
                 <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" x:DataType="m:Report" Width="*"/>
                 <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name, Mode=OneWay}" x:DataType="m:Report" Width="100"/>
                 <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=dd.MM.yyyy}" x:DataType="m:Report" Width="100"/>
             </dg:DataGrid.Columns>
         </dg:DataGrid>
+        </Border>
 
         <!-- Control Actions -->
-        <StackPanel Spacing="5" Margin="0,5">
-            <TextBlock Text="Управление статусом выделенной записи:" FontWeight="Bold"/>
-            <StackPanel Orientation="Horizontal" Spacing="10">
-                <Button Content="В работу" Command="{Binding ChangeStatusCommand}" CommandParameter="InProgress" Background="#E1BEE7"/>
-                <Button Content="Решено" Command="{Binding ChangeStatusCommand}" CommandParameter="Resolved" Background="#C8E6C9"/>
-                <Button Content="Отклонить" Command="{Binding ChangeStatusCommand}" CommandParameter="Rejected" Background="#FFCDD2"/>
+        <Border Background="White" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="15">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Управление статусом выделенной записи" FontWeight="SemiBold" Foreground="#1e293b"/>
+                <StackPanel Orientation="Horizontal" Spacing="15">
+                    <Button Content="В работу" Command="{Binding ChangeStatusCommand}" CommandParameter="В разработке" Background="#eab308" Foreground="White" FontWeight="Medium" Padding="15,8" CornerRadius="6"/>
+                    <Button Content="Принять (Виновен)" Command="{Binding ChangeStatusCommand}" CommandParameter="Виновен (Принято)" Background="#22c55e" Foreground="White" FontWeight="Medium" Padding="15,8" CornerRadius="6"/>
+                    <Button Content="Отклонить (Оправдан)" Command="{Binding ChangeStatusCommand}" CommandParameter="Оправдан (Отклонено)" Background="#ef4444" Foreground="White" FontWeight="Medium" Padding="15,8" CornerRadius="6"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Border>
 
     </StackPanel>
 </UserControl>

@@ -11,4 +11,5 @@ public interface IReportRepository
     void UpdateStatus(int reportId, string statusName);
     int GetTotalCount(int? authorId = null);
     int GetCountByStatus(string statusName, int? authorId = null);
+    int CalculateReliability(string description, bool isAnonymous);
 }

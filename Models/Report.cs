@@ -13,6 +13,11 @@ public class Report
     public int CategoryId { get; set; }
     public Category? Category { get; set; }
 
+    public int? ViolatorId { get; set; }
+    public User? Violator { get; set; }
+
+    public int ReliabilityScore { get; set; }
+
     public string Description { get; set; } = null!;
 
     public int StatusId { get; set; }

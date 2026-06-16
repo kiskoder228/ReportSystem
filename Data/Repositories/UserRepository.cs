@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public User RegisterUser(string fullName, string login, string password)
+    public User RegisterUser(string fullName, string login, string password, string address)
     {
         using var db = _dbFactory.CreateDbContext();
         var role = db.Roles.FirstOrDefault(r => r.Name == "Student");
@@ -37,6 +37,7 @@ public class UserRepository : IUserRepository
             FullName = fullName,
             Login = login,
             PasswordHash = BC.HashPassword(password),
+            Address = address,
             Role = role,
             RoleId = role?.Id ?? 3,
             CreatedAt = DateTime.UtcNow
@@ -89,5 +90,23 @@ public class UserRepository : IUserRepository
             db.Users.Remove(user);
             db.SaveChanges();
         }
+    }
+
+    public IEnumerable<User> GetTopInformants(int count)
+    {
+        using var db = _dbFactory.CreateDbContext();
+        return db.Users
+            .OrderByDescending(u => u.Score)
+            .Take(count)
+            .ToList();
+    }
+
+    public IEnumerable<User> GetAvailableViolators(int currentUserId)
+    {
+        using var db = _dbFactory.CreateDbContext();
+        return db.Users
+            .Include(u => u.Role)
+            .Where(u => u.Id != currentUserId && (u.Role == null || u.Role.Name != "Admin"))
+            .ToList();
     }
 }

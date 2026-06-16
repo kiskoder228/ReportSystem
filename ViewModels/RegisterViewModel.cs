@@ -20,6 +20,9 @@ public partial class RegisterViewModel : ObservableObject
     private string _password = "";
 
     [ObservableProperty]
+    private string _address = "";
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasMessage))]
     private string _statusMessage = "";
 
@@ -63,7 +66,7 @@ public partial class RegisterViewModel : ObservableObject
                 return;
             }
 
-            var newUser = _userRepository.RegisterUser(FullName, Login, Password);
+            var newUser = _userRepository.RegisterUser(FullName, Login, Password, Address);
 
             ShowMessage("Регистрация успешна!", Brushes.Green);
             

@@ -12,10 +12,14 @@ public partial class CreateReportViewModel : ObservableObject
 {
     private readonly ICategoryRepository _categoryRepository;
     private readonly IReportRepository _reportRepository;
+    private readonly IUserRepository _userRepository;
     private readonly User _currentUser;
 
     [ObservableProperty]
     private Category? _selectedCategory;
+
+    [ObservableProperty]
+    private User? _selectedViolator;
 
     [ObservableProperty]
     private string _description = "";
@@ -33,16 +37,31 @@ public partial class CreateReportViewModel : ObservableObject
     private bool _isSuccess;
 
     public ObservableCollection<Category> Categories { get; } = new();
+    public ObservableCollection<User> AvailableViolators { get; } = new();
 
     public CreateReportViewModel(
         ICategoryRepository categoryRepository,
         IReportRepository reportRepository,
+        IUserRepository userRepository,
         User user)
     {
         _categoryRepository = categoryRepository;
         _reportRepository = reportRepository;
+        _userRepository = userRepository;
         _currentUser = user;
         LoadCategories();
+        LoadViolators();
+    }
+
+    private void LoadViolators()
+    {
+        try
+        {
+            AvailableViolators.Clear();
+            foreach (var v in _userRepository.GetAvailableViolators(_currentUser.Id))
+                AvailableViolators.Add(v);
+        }
+        catch { }
     }
 
     private void LoadCategories()
@@ -67,18 +86,22 @@ public partial class CreateReportViewModel : ObservableObject
     [RelayCommand]
     private void Submit()
     {
-        if (SelectedCategory == null || string.IsNullOrWhiteSpace(Description))
+        if (SelectedCategory == null || SelectedViolator == null || string.IsNullOrWhiteSpace(Description))
         {
-            ShowMessage(false, "Заполните описание и выберите категорию!");
+            ShowMessage(false, "Заполните описание, выберите нарушителя и категорию!");
             return;
         }
 
         try
         {
+            var relScore = _reportRepository.CalculateReliability(Description, IsAnonymous);
+
             var report = new Report
             {
                 AuthorId = _currentUser.Id,
                 CategoryId = SelectedCategory.Id,
+                ViolatorId = SelectedViolator.Id,
+                ReliabilityScore = relScore,
                 Description = Description,
                 IsAnonymous = IsAnonymous,
                 CreatedAt = DateTime.UtcNow
@@ -101,5 +124,6 @@ public partial class CreateReportViewModel : ObservableObject
         Description = "";
         IsAnonymous = false;
         SelectedCategory = Categories.FirstOrDefault();
+        SelectedViolator = null;
     }
 }

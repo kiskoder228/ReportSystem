@@ -21,6 +21,7 @@ public class ReportRepository : IReportRepository
         return db.Reports
             .Include(r => r.Category)
             .Include(r => r.Status)
+            .Include(r => r.Violator)
             .Where(r => r.AuthorId == authorId)
             .ToList();
     }
@@ -32,6 +33,7 @@ public class ReportRepository : IReportRepository
             .Include(r => r.Status)
             .Include(r => r.Author)
             .Include(r => r.Category)
+            .Include(r => r.Violator)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(searchText))
@@ -66,7 +68,7 @@ public class ReportRepository : IReportRepository
         }
         else
         {
-            var statusNew = db.ReportStatuses.FirstOrDefault(s => s.Name == "New");
+            var statusNew = db.ReportStatuses.FirstOrDefault(s => s.Name == "Ожидает приговора");
             if (statusNew != null)
             {
                 report.StatusId = statusNew.Id;
@@ -80,12 +82,18 @@ public class ReportRepository : IReportRepository
     public void UpdateStatus(int reportId, string statusName)
     {
         using var db = _dbFactory.CreateDbContext();
-        var report = db.Reports.FirstOrDefault(r => r.Id == reportId);
+        var report = db.Reports.Include(r => r.Author).Include(r => r.Violator).FirstOrDefault(r => r.Id == reportId);
         var status = db.ReportStatuses.FirstOrDefault(s => s.Name == statusName);
         if (report != null && status != null)
         {
+            if (statusName == "Виновен (Принято)" && report.StatusId != status.Id)
+            {
+                if (report.Author != null) report.Author.Score += 10;
+                if (report.Violator != null) report.Violator.Score -= 10;
+            }
+
             report.StatusId = status.Id;
-            if (statusName == "Resolved" || statusName == "Rejected")
+            if (statusName == "Виновен (Принято)" || statusName == "Оправдан (Отклонено)")
             {
                 report.ResolvedAt = DateTime.UtcNow;
             }
@@ -113,5 +121,22 @@ public class ReportRepository : IReportRepository
             query = query.Where(r => r.AuthorId == authorId.Value);
         }
         return query.Count(r => r.Status != null && r.Status.Name == statusName);
+    }
+
+    public int CalculateReliability(string description, bool isAnonymous)
+    {
+        int score = 50;
+        if (isAnonymous) score -= 20;
+        if (!string.IsNullOrWhiteSpace(description) && description.Length > 50) score += 15;
+        
+        var lowerDesc = description?.ToLower() ?? "";
+        if (lowerDesc.Contains("точно") || lowerDesc.Contains("видел") || lowerDesc.Contains("свидетель"))
+        {
+            score += 35;
+        }
+        
+        if (score > 100) score = 100;
+        if (score < 0) score = 0;
+        return score;
     }
 }
