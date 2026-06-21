@@ -204,3 +204,4 @@ C:\Projects\ReportsSystem\ReportSystem.Tests\obj\Debug\net8.0\refint\ReportSyste
 C:\Projects\ReportsSystem\ReportSystem.Tests\obj\Debug\net8.0\ReportSystem.Tests.pdb
 C:\Projects\ReportsSystem\ReportSystem.Tests\obj\Debug\net8.0\ReportSystem.Tests.genruntimeconfig.cache
 C:\Projects\ReportsSystem\ReportSystem.Tests\obj\Debug\net8.0\ref\ReportSystem.Tests.dll
+C:\Projects\ReportsSystem\ReportSystem.Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll

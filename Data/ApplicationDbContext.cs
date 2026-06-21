@@ -7,6 +7,8 @@ namespace ReportSystem.Data;
 
 public class ApplicationDbContext : DbContext
 {
+    public ApplicationDbContext() { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Report> Reports { get; set; } = null!;
