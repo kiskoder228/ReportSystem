@@ -57,9 +57,11 @@ public partial class DashboardViewModel : ObservableObject
         // Заполняем личный рейтинг нарушителя
         MyScore = user.Score;
         MyRank = user.Rank;
-        // Полоска: чем больше отрицательный score, тем полнее заполнена
-        // 0 очков = 0%, -100 и ниже = 100%
-        MyScorePercent = user.Score >= 0 ? 0 : Math.Min(Math.Abs(user.Score), 100);
+        // Полоска: Score от -100 до +100 отображается как 0%–100%
+        // -100 (Мученик, пустая) → 0 (середина, 50%) → +100 (Крыса, полная)
+        // Жалобы на тебя = шкала пустеет, твои одобренные жалобы = шкала растёт
+        var clampedScore = Math.Max(-100, Math.Min(user.Score, 100));
+        MyScorePercent = (clampedScore + 100) / 2.0;
 
         int? authorId = user.Role?.Name == "Student" ? user.Id : null;
 
