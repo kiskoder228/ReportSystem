@@ -96,6 +96,8 @@ public class UserRepository : IUserRepository
     {
         using var db = _dbFactory.CreateDbContext();
         return db.Users
+            .Include(u => u.Role)
+            .Where(u => u.Role != null && u.Role.Name == "Student")
             .OrderByDescending(u => u.Score)
             .Take(count)
             .ToList();

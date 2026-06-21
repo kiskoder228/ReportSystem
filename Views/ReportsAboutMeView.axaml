@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ReportSystem.ViewModels"
+             xmlns:dg="using:Avalonia.Controls"
+             xmlns:m="using:ReportSystem.Models"
+             x:Class="ReportSystem.Views.ReportsAboutMeView"
+             x:DataType="vm:ReportsAboutMeViewModel">
+
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="10">
+
+            <!-- Header -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="Жалобы на меня" FontSize="24" FontWeight="SemiBold" Foreground="#1e293b"/>
+                <TextBlock Text="Здесь отображаются все жалобы, поданные на вас другими пользователями" Foreground="#64748b"/>
+            </StackPanel>
+
+            <!-- Моя карточка рейтинга (только для студентов) -->
+            <Border Background="White" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="12" Padding="25">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Мой рейтинг нарушителя" FontSize="16" FontWeight="SemiBold" Foreground="#1e293b"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock Text="{Binding UserName}" FontSize="15" FontWeight="Medium" Foreground="#334155"/>
+                            <TextBlock Text="{Binding UserRank}" FontSize="13" Foreground="#64748b"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding UserScore, StringFormat='{}{0} очков'}" FontSize="18" FontWeight="Bold" Foreground="#ef4444" VerticalAlignment="Center"/>
+                    </Grid>
+                    <!-- Полоска уровня -->
+                    <ProgressBar Value="{Binding ScorePercent}" Minimum="0" Maximum="100" Height="12" CornerRadius="6" Background="#fee2e2" Foreground="#ef4444"/>
+                    <TextBlock Text="Чем больше жалоб на вас подтверждено — тем выше ваш 'уровень'" FontSize="11" Foreground="#94a3b8"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Таблица жалоб -->
+            <Border BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+                <dg:DataGrid ItemsSource="{Binding Reports}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserResizeColumns="True"
+                          GridLinesVisibility="Horizontal"
+                          RowBackground="White"
+                          Height="350">
+                    <dg:DataGrid.Columns>
+                        <dg:DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneWay}" x:DataType="m:Report" Width="50"/>
+                        <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" x:DataType="m:Report" Width="130"/>
+                        <dg:DataGridTextColumn Header="Автор" Binding="{Binding Author.FullName, Mode=OneWay}" x:DataType="m:Report" Width="150"/>
+                        <dg:DataGridTemplateColumn Header="Описание" Width="*">
+                            <dg:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="m:Report">
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5"/>
+                                </DataTemplate>
+                            </dg:DataGridTemplateColumn.CellTemplate>
+                        </dg:DataGridTemplateColumn>
+                        <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name, Mode=OneWay}" x:DataType="m:Report" Width="130"/>
+                        <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=dd.MM.yyyy}" x:DataType="m:Report" Width="90"/>
+                    </dg:DataGrid.Columns>
+                </dg:DataGrid>
+            </Border>
+
+            <TextBlock Text="На вас пока нет жалоб. Продолжайте в том же духе! 🎉"
+                       IsVisible="{Binding HasNoReports}"
+                       Foreground="#22c55e"
+                       FontSize="15"
+                       FontWeight="Medium"
+                       HorizontalAlignment="Center"
+                       Margin="0,20,0,0"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

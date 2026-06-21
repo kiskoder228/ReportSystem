@@ -6,6 +6,7 @@ namespace ReportSystem.Data.Repositories;
 public interface IReportRepository
 {
     IEnumerable<Report> GetReportsByAuthor(int authorId);
+    IEnumerable<Report> GetReportsByViolator(int violatorId);
     IEnumerable<Report> GetAllReports(string? searchText, string? filterStatus);
     void AddReport(Report report);
     void UpdateStatus(int reportId, string statusName);

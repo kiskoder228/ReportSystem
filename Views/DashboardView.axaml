@@ -52,7 +52,23 @@
                 </Border>
             </UniformGrid>
 
-            <!-- Help Guide & Leaderboard -->
+            <!-- Личный рейтинг нарушителя — только для студентов -->
+            <Border IsVisible="{Binding IsStudent}"
+                    Background="White" BorderBrush="#fca5a5" BorderThickness="1" CornerRadius="12" Padding="25">
+                <StackPanel Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock Text="Мой уровень нарушителя" FontSize="16" FontWeight="SemiBold" Foreground="#1e293b"/>
+                            <TextBlock Text="{Binding MyRank}" FontSize="13" Foreground="#ef4444" FontWeight="Medium"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding MyScore, StringFormat='{}{0} очков'}" FontSize="20" FontWeight="Bold" Foreground="#ef4444" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ProgressBar Value="{Binding MyScorePercent}" Minimum="0" Maximum="100" Height="14" CornerRadius="7" Background="#fee2e2" Foreground="#ef4444"/>
+                    <TextBlock Text="Чем больше жалоб на тебя одобрено — тем выше уровень. Держи себя в руках!" FontSize="12" Foreground="#94a3b8" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Help Guide &amp; Leaderboard -->
             <UniformGrid Columns="2" Rows="1">
                 <Border BorderBrush="#e2e8f0" BorderThickness="1" Padding="25" Margin="5" Background="White" CornerRadius="12">
                     <StackPanel Spacing="15">
@@ -70,13 +86,17 @@
                         <ItemsControl ItemsSource="{Binding TopInformants}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="#f1f5f9" BorderThickness="0,0,0,1" Padding="10,8">
-                                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
-                                            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding FullName}" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,10,0" FontSize="15"/>
-                                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Rank, StringFormat='Ранг: {0}'}" Foreground="#64748b" FontSize="13" VerticalAlignment="Center"/>
-                                            <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Score, StringFormat='Очки: {0}'}" FontWeight="Bold" Foreground="#3b82f6" FontSize="15"/>
-                                            <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Address, StringFormat='Место прописки: {0}'}" FontSize="12" Foreground="#94a3b8" Margin="0,2,0,0" IsVisible="{Binding Address, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
-                                        </Grid>
+                                    <Border BorderBrush="#f1f5f9" BorderThickness="0,0,0,1" Padding="10,10">
+                                        <StackPanel Spacing="4">
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <StackPanel Grid.Column="0" Spacing="2">
+                                                    <TextBlock Text="{Binding FullName}" FontWeight="SemiBold" Foreground="#1e293b" FontSize="14"/>
+                                                    <TextBlock Text="{Binding Rank}" Foreground="#64748b" FontSize="12"/>
+                                                </StackPanel>
+                                                <TextBlock Grid.Column="1" Text="{Binding Score, StringFormat='{}{0} очков'}" FontWeight="Bold" Foreground="#3b82f6" FontSize="15" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            <TextBlock Text="{Binding Address, StringFormat='📍 {0}'}" FontSize="11" Foreground="#94a3b8" IsVisible="{Binding Address, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                        </StackPanel>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

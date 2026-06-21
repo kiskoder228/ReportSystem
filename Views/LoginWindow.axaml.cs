@@ -30,8 +30,8 @@ public partial class LoginWindow : Window
         {
             var regWindow = _serviceProvider.GetRequiredService<RegisterWindow>();
             regWindow.Show();
-            this.Hide();
-            regWindow.Closed += (_, _) => this.Show();
+            this.WindowState = WindowState.Minimized;
+            regWindow.Closed += (_, _) => this.WindowState = WindowState.Normal;
         }
     }
 

@@ -32,7 +32,7 @@
             </StackPanel>
 
             <StackPanel Spacing="5">
-                <TextBlock Text="Место прописки (для доски почета)" Foreground="#475569" FontWeight="Medium"/>
+                <TextBlock Text="Место прописки (данные не будут публично разглашены)" Foreground="#475569" FontWeight="Medium"/>
                 <TextBox Text="{Binding Address}" FontSize="15" Padding="10"/>
             </StackPanel>
 

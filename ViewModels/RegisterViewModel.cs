@@ -58,6 +58,12 @@ public partial class RegisterViewModel : ObservableObject
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(Address))
+        {
+            ShowMessage("Укажите место жительства!", Brushes.Red);
+            return;
+        }
+
         try
         {
             if (_userRepository.UserExists(Login))

@@ -21,6 +21,7 @@
                   SelectedItem="{Binding SelectedUser}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  CanUserResizeColumns="True"
                   GridLinesVisibility="All"
                   BorderBrush="Gray"
                   BorderThickness="1"

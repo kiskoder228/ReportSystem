@@ -26,6 +26,18 @@ public class ReportRepository : IReportRepository
             .ToList();
     }
 
+    public IEnumerable<Report> GetReportsByViolator(int violatorId)
+    {
+        using var db = _dbFactory.CreateDbContext();
+        return db.Reports
+            .Include(r => r.Category)
+            .Include(r => r.Status)
+            .Include(r => r.Author)
+            .Where(r => r.ViolatorId == violatorId)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToList();
+    }
+
     public IEnumerable<Report> GetAllReports(string? searchText, string? filterStatus)
     {
         using var db = _dbFactory.CreateDbContext();

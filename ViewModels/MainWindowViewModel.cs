@@ -76,5 +76,9 @@ public partial class MainWindowViewModel : ObservableObject
         {
             CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<AdminUsersViewModel>(_serviceProvider, CurrentUser);
         }
+        else if (destination == "ReportsAboutMe" && (IsStudent || IsTeacher))
+        {
+            CurrentPage = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<ReportsAboutMeViewModel>(_serviceProvider, CurrentUser);
+        }
     }
 }

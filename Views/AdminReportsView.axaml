@@ -33,6 +33,7 @@
                       SelectedItem="{Binding SelectedReport}"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
+                      CanUserResizeColumns="True"
                       GridLinesVisibility="Horizontal"
                       RowBackground="White"
                       Height="350">
@@ -42,7 +43,13 @@
                 <dg:DataGridTextColumn Header="Нарушитель" Binding="{Binding Violator.FullName, Mode=OneWay}" x:DataType="m:Report" Width="120"/>
                 <dg:DataGridTextColumn Header="Категория" Binding="{Binding Category.Name, Mode=OneWay}" x:DataType="m:Report" Width="100"/>
                 <dg:DataGridTextColumn Header="Достов. %" Binding="{Binding ReliabilityScore, Mode=OneWay}" x:DataType="m:Report" Width="80"/>
-                <dg:DataGridTextColumn Header="Описание" Binding="{Binding Description, Mode=OneWay}" x:DataType="m:Report" Width="*"/>
+                <dg:DataGridTemplateColumn Header="Описание" Width="*">
+                    <dg:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="m:Report">
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5"/>
+                        </DataTemplate>
+                    </dg:DataGridTemplateColumn.CellTemplate>
+                </dg:DataGridTemplateColumn>
                 <dg:DataGridTextColumn Header="Статус" Binding="{Binding Status.Name, Mode=OneWay}" x:DataType="m:Report" Width="100"/>
                 <dg:DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, Mode=OneWay, StringFormat=dd.MM.yyyy}" x:DataType="m:Report" Width="100"/>
             </dg:DataGrid.Columns>

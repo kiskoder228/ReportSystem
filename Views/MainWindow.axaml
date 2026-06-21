@@ -29,11 +29,13 @@
                             <Button Content="Главная страница" Command="{Binding NavigateCommand}" CommandParameter="Dashboard" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
                             <Button Content="Создать жалобу" Command="{Binding NavigateCommand}" CommandParameter="CreateReport" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
                             <Button Content="Мои обращения" Command="{Binding NavigateCommand}" CommandParameter="MyReports" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                            <Button Content="Жалобы на меня" Command="{Binding NavigateCommand}" CommandParameter="ReportsAboutMe" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#fee2e2" Foreground="#ef4444" FontWeight="Medium"/>
                         </StackPanel>
 
                         <StackPanel IsVisible="{Binding IsTeacher}" Spacing="6">
                             <Button Content="Главная страница" Command="{Binding NavigateCommand}" CommandParameter="Dashboard" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
                             <Button Content="Список нарушений" Command="{Binding NavigateCommand}" CommandParameter="AllReports" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                            <Button Content="Жалобы на меня" Command="{Binding NavigateCommand}" CommandParameter="ReportsAboutMe" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#fee2e2" Foreground="#ef4444" FontWeight="Medium"/>
                         </StackPanel>
 
                         <StackPanel IsVisible="{Binding IsAdmin}" Spacing="6">
