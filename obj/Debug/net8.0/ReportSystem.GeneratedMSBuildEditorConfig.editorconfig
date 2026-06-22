@@ -18,38 +18,38 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property.EntryPointFilePath = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ReportSystem
-build_property.ProjectDir = c:\Projects\ReportsSystem\
+build_property.ProjectDir = C:\Users\student\RiderProjects\ReportSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[c:/Projects/ReportsSystem/App.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/AdminReportsView.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/AdminReportsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/AdminUsersView.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/AdminUsersView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/CreateReportView.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/CreateReportView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/DashboardView.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/DashboardView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/LoginWindow.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/MainWindow.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/MyReportsView.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/MyReportsView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/RegisterWindow.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/RegisterWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[c:/Projects/ReportsSystem/Views/ReportsAboutMeView.axaml]
+[C:/Users/student/RiderProjects/ReportSystem/Views/ReportsAboutMeView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

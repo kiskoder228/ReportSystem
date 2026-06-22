@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Projects\\ReportsSystem\\ReportSystem.csproj": {}
+    "C:\\Users\\student\\RiderProjects\\ReportSystem\\ReportSystem.csproj": {}
   },
   "projects": {
-    "c:\\Projects\\ReportsSystem\\ReportSystem.csproj": {
+    "C:\\Users\\student\\RiderProjects\\ReportSystem\\ReportSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Projects\\ReportsSystem\\ReportSystem.csproj",
+        "projectUniqueName": "C:\\Users\\student\\RiderProjects\\ReportSystem\\ReportSystem.csproj",
         "projectName": "ReportSystem",
-        "projectPath": "c:\\Projects\\ReportsSystem\\ReportSystem.csproj",
-        "packagesPath": "C:\\Users\\awsedrggft\\.nuget\\packages\\",
-        "outputPath": "c:\\Projects\\ReportsSystem\\obj\\",
+        "projectPath": "C:\\Users\\student\\RiderProjects\\ReportSystem\\ReportSystem.csproj",
+        "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\student\\RiderProjects\\ReportSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\awsedrggft\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\student\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,11 +27,10 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "http://192.168.200.81:8081/repository/nuget.org-proxy/index.json": {}
         },
         "frameworks": {
           "net8.0": {
-            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           }
@@ -50,7 +49,6 @@
       },
       "frameworks": {
         "net8.0": {
-          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "Avalonia": {
@@ -115,12 +113,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.27, 8.0.27]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.27, 8.0.27]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.27, 8.0.27]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.27, 8.0.27]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
