@@ -54,7 +54,7 @@ public class UnitTests
         var repository = new ReportRepository(mockFactory.Object);
 
         int score = repository.CalculateReliability("Я видел нарушение", true);
-
+ 
         Assert.Equal(65, score);
     }
 }

@@ -12,7 +12,6 @@
             <TextBlock Text="Просмотр и управление всеми зарегистрированными жалобами" Foreground="#64748b"/>
         </StackPanel>
 
-        <!-- Filters -->
         <Border Background="White" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="15">
             <StackPanel Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
                 <TextBlock Text="Поиск:" VerticalAlignment="Center" Foreground="#475569" FontWeight="Medium"/>
@@ -20,14 +19,12 @@
                 
                 <TextBlock Text="Статус:" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#475569" FontWeight="Medium"/>
                 <ComboBox ItemsSource="{Binding StatusFilters}" SelectedItem="{Binding FilterStatus}" Width="150"/>
-
-                <Button Content="Экспорт в TXT" Command="{Binding ExportToFileCommand}" Background="#f1f5f9" Foreground="#475569" FontWeight="Medium" Margin="20,0,0,0" Padding="15,8" CornerRadius="6"/>
+                
             </StackPanel>
         </Border>
 
         <TextBlock Text="{Binding StatusMessage}" Foreground="#ef4444" FontWeight="Medium" Margin="0,0,0,5" IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
 
-        <!-- Grid -->
         <Border BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
             <dg:DataGrid ItemsSource="{Binding Reports}"
                       SelectedItem="{Binding SelectedReport}"
@@ -56,7 +53,6 @@
         </dg:DataGrid>
         </Border>
 
-        <!-- Control Actions -->
         <Border Background="White" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="15">
             <StackPanel Spacing="10">
                 <TextBlock Text="Управление статусом выделенной записи" FontWeight="SemiBold" Foreground="#1e293b"/>

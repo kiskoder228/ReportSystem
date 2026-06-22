@@ -109,7 +109,7 @@ public partial class CreateReportViewModel : ObservableObject
 
             _reportRepository.AddReport(report);
 
-            ShowMessage(true, "✅ Обращение успешно отправлено!");
+            ShowMessage(true, "Обращение успешно отправлено!");
             Clear();
         }
         catch (Exception ex)

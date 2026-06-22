@@ -85,23 +85,5 @@ public partial class AdminReportsViewModel : ObservableObject
             StatusMessage = "Ошибка: " + ex.Message;
         }
     }
-
-    [RelayCommand]
-    private void ExportToFile()
-    {
-        try
-        {
-            var lines = Reports.Select(r => 
-                $"ID: {r.Id} | От: {(r.IsAnonymous ? "Аноним" : r.Author?.FullName)} | " +
-                $"На: {r.Violator?.FullName} | Достоверность: {r.ReliabilityScore}% | " +
-                $"Описание: {r.Description} | Статус: {r.Status?.Name}");
-                
-            System.IO.File.WriteAllLines("export_reports.txt", lines);
-            StatusMessage = "Успешно экспортировано в export_reports.txt!";
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = "Ошибка экспорта: " + ex.Message;
-        }
-    }
+    
 }

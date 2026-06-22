@@ -22,8 +22,6 @@ public partial class ReportsAboutMeViewModel : ObservableObject
         UserName = user.FullName;
         UserScore = user.Score;
         UserRank = user.Rank;
-        // Полоска: уровень до следующего ранга
-        // Подлиза 0-20, Смотрящий 21-50, Стукач 51-90, Крыса 91+
         ScorePercent = user.Score <= 0 ? 0
             : user.Score <= 20 ? (double)user.Score / 20 * 100
             : user.Score <= 50 ? (double)(user.Score - 20) / 30 * 100

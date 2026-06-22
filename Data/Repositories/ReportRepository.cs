@@ -65,7 +65,6 @@ public class ReportRepository : IReportRepository
     {
         using var db = _dbFactory.CreateDbContext();
         
-        // Ensure status from DB is attached
         if (report.Status != null)
         {
             db.Entry(report.Status).State = EntityState.Unchanged;

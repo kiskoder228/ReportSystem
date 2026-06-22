@@ -7,7 +7,6 @@ using ReportSystem.Models;
 
 namespace ReportSystem.ViewModels;
 
-// Вспомогательный класс для отображения рейтинга с полоской
 public class InformantEntry
 {
     public string FullName { get; set; } = string.Empty;
@@ -39,13 +38,9 @@ public partial class DashboardViewModel : ObservableObject
     public string GreetingName { get; }
     public bool IsStudent { get; }
 
-    // Личный рейтинг нарушителя (только для студентов)
     public int MyScore { get; private set; }
     public string MyRank { get; private set; } = string.Empty;
     public double MyScorePercent { get; private set; }
-    // Score уходит в минус — нормализуем: чем ниже, тем хуже
-    // Диапазон: -100 (плохо) ... 0 ... +100 (нейтрально, очков нет)
-    // Отображаем заполненность как «уровень репутации» от 0 до 100%
 
     public DashboardViewModel(IReportRepository reportRepository, IUserRepository userRepository, User user)
     {
@@ -54,12 +49,8 @@ public partial class DashboardViewModel : ObservableObject
         GreetingName = user.FullName.Split(' ').FirstOrDefault() ?? user.FullName;
         IsStudent = user.Role?.Name == "Student";
 
-        // Заполняем личный рейтинг нарушителя
         MyScore = user.Score;
         MyRank = user.Rank;
-        // Полоска: Score от -100 до +100 отображается как 0%–100%
-        // -100 (Мученик, пустая) → 0 (середина, 50%) → +100 (Крыса, полная)
-        // Жалобы на тебя = шкала пустеет, твои одобренные жалобы = шкала растёт
         var clampedScore = Math.Max(-100, Math.Min(user.Score, 100));
         MyScorePercent = (clampedScore + 100) / 2.0;
 

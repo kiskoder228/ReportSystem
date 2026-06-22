@@ -9,14 +9,11 @@
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="10">
 
-            <!-- Header -->
             <StackPanel Spacing="5">
                 <TextBlock Text="Жалобы на меня" FontSize="24" FontWeight="SemiBold" Foreground="#1e293b"/>
                 <TextBlock Text="Здесь отображаются все жалобы, поданные на вас другими пользователями" Foreground="#64748b"/>
             </StackPanel>
-
-
-            <!-- Таблица жалоб -->
+            
             <Border BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
                 <dg:DataGrid ItemsSource="{Binding Reports}"
                           AutoGenerateColumns="False"
@@ -42,7 +39,7 @@
                 </dg:DataGrid>
             </Border>
 
-            <TextBlock Text="На вас пока нет жалоб. Продолжайте в том же духе! 🎉"
+            <TextBlock Text="На вас пока нет жалоб. Продолжайте в том же духе! "
                        IsVisible="{Binding HasNoReports}"
                        Foreground="#22c55e"
                        FontSize="15"
